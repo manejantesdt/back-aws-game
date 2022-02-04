@@ -3,7 +3,7 @@ name: Deploy serverless
 on:
   push:
     branches:
-      - fabri
+      - main
 
 jobs:
   deploy:
