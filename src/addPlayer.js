@@ -2,7 +2,7 @@ const AWS = require("aws-sdk");
 
 const addPlayer = async (event) => {
   const dynamoDb = new AWS.DynamoDB.DocumentClient();
-  console.log("prueba");
+
   var { nickname, avatar } = JSON.parse(event.body);
   const result = await dynamoDb
     .scan({
