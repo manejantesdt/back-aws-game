@@ -3,7 +3,7 @@ name: Deploy serverless
 on:
   push:
     branches:
-      - main
+      - fabri
 
 jobs:
   deploy:
@@ -18,7 +18,6 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - run: cd aws-la
     - run: npm ci
     - name: serverless deploy
       uses: serverless/github-action@v3
