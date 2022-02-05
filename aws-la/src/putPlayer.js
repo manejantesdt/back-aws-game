@@ -6,6 +6,7 @@ const putPlayer = async (event) => {
     const dynamodb = new AWS.DynamoDB.DocumentClient();
     var { Id } = event.pathParameters;
     Id = parseInt(Id);
+    
     const { avatar, score, ranking, status, nickname } = JSON.parse(event.body);
 
     await dynamodb
