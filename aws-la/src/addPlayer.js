@@ -1,7 +1,6 @@
 const AWS = require("aws-sdk");
 
 const addPlayer = async (event) => {
-  
   try {
     const dynamoDb = new AWS.DynamoDB.DocumentClient();
 
@@ -15,6 +14,7 @@ const addPlayer = async (event) => {
       avatar =
         "https://drive.google.com/thumbnail?id=1wy_udY0W2rebTfKDYVClfAbWewWqfzmd";
     }
+
     let players = result.Items;
     players = players.sort((a, b) => a.Id - b.Id);
     let lastPlayer = players[players.length - 1];
