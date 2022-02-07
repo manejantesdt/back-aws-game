@@ -24,7 +24,7 @@ const getPlayers = async (event) => {
               },
             })
             .promise();
-          if (playerId) {
+          if (playerId && playerId.Item !== null) {
             playerId = playerId.Item;
             players = [playerId];
           } else {
