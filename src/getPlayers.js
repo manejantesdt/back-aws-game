@@ -53,6 +53,11 @@ const getPlayers = async (event) => {
             };
           }
         }
+      }else if(nick_name === ""){
+        return {
+          status: 404,
+          body: [],
+        };
       }
       if ((order && order === "asc") || order === "desc" || order === "") {
         if (order === "asc" || order === "") {
