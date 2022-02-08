@@ -14,12 +14,6 @@ provider:
 
 
 functions:
-  hello:
-    handler: src/handler.hello
-    events:
-      - httpApi:
-          path: /
-          method: get
   createPlayer:
     handler: src/addPlayer.addPlayer
     events:
@@ -44,6 +38,12 @@ functions:
       - httpApi:
           path: /player/{Id}
           method: put
+  deletePlayer:
+    handler: src/deletePlayer.deletePlayer
+    events:
+      - httpApi:
+          path: /player/{Id}
+          method: delete
 
 resources: 
   Resources:

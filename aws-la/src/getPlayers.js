@@ -24,7 +24,7 @@ const getPlayers = async (event) => {
               },
             })
             .promise();
-          if (playerId) {
+          if (playerId && playerId.Item !== null) {
             playerId = playerId.Item;
             players = [playerId];
           } else {
@@ -56,11 +56,9 @@ const getPlayers = async (event) => {
       }
       if ((order && order === "asc") || order === "desc" || order === "") {
         if (order === "asc" || order === "") {
-          // players.sort((a, b) => b.ranking - a.ranking);
           players.sort((a, b) => a.ranking - b.ranking);
         }
         if (order === "desc") {
-          // players.sort((a, b) => a.ranking - b.ranking);
           players.sort((a, b) => b.ranking - a.ranking);
         }
       }

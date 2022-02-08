@@ -1,35 +1,31 @@
 const AWS = require("aws-sdk");
 
-const getPlayerId = async (event) => {
+const deletePlayer = async (event) => {
   try {
     const dynamodb = new AWS.DynamoDB.DocumentClient();
     var { Id } = event.pathParameters;
     Id = parseInt(Id);
-    const result = await dynamodb
-      .get({
+    await dynamodb
+      .delete({
         TableName: "CredituPlayers",
-        Key: {
-          Id,
-        },
+        Key: { Id: Id },
       })
       .promise();
-
-    const player = result.Item;
     return {
       status: 200,
-      body: player,
+      body: {
+        message: "Player deleted successfully",
+      },
     };
   } catch (e) {
     console.error(e);
     response.statusCode = 500;
     response.body = JSON.stringify({
-      message: "Failed GetPlayerId.",
+      message: "Failed to delete player.",
       errorMsg: e.message,
       errorStack: e.stack,
     });
   }
 };
 
-module.exports = {
-  getPlayerId,
-};
+module.exports = { deletePlayer };
