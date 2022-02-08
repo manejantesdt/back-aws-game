@@ -24,7 +24,7 @@ const getPlayers = async (event) => {
               },
             })
             .promise();
-          if (playerId && playerId.Item !== null) {
+          if (playerId) {
             playerId = playerId.Item;
             players = [playerId];
           } else {
@@ -53,20 +53,13 @@ const getPlayers = async (event) => {
             };
           }
         }
-        // --------------------------- si en el else if funciona ----------------
-      }else if(nick_name === ""){
-        return {
-          status: 404,
-          body: [],
-        };
       }
-      // ________________________________________________________________________
       if ((order && order === "asc") || order === "desc" || order === "") {
         if (order === "asc" || order === "") {
-          players.sort((a, b) => a.ranking - b.ranking);
+          players.sort((a, b) => b.ranking - a.ranking);
         }
         if (order === "desc") {
-          players.sort((a, b) => b.ranking - a.ranking);
+          players.sort((a, b) => a.ranking - b.ranking);
         }
       }
       if (
