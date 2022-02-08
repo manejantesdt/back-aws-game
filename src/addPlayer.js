@@ -16,10 +16,10 @@ const addPlayer = async (event) => {
         "https://drive.google.com/thumbnail?id=1wy_udY0W2rebTfKDYVClfAbWewWqfzmd";
     }
     let players = result.Items;
-    players = players.sort((a, b) => a.Id - b.Id);
+    players = players.sort((a, b) => a.ranking - b.ranking);
     let lastPlayer = players[players.length - 1];
     const newPlayer = {
-      Id: lastPlayer.Id + 1,
+      Id: lastPlayer.ranking + 1,
       nickname,
       status: "hierro",
       ranking: lastPlayer.ranking + 1,
