@@ -53,7 +53,14 @@ const getPlayers = async (event) => {
             };
           }
         }
+        // --------------------------- si en el else if funciona ----------------
+      }else if(nick_name === ""){
+        return {
+          status: 404,
+          body: [],
+        };
       }
+      // ________________________________________________________________________
       if ((order && order === "asc") || order === "desc" || order === "") {
         if (order === "asc" || order === "") {
           players.sort((a, b) => a.ranking - b.ranking);
