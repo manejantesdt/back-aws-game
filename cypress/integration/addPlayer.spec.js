@@ -10,7 +10,6 @@ describe("add player testing", () => {
       })
       .then((response) => {
         response1 = response;
-        console.log(response1)
       });
   });
 

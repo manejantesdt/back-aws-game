@@ -7,3 +7,7 @@ jspm_packages
 package-lock.json
 cypress/integration/1-getting-started/
 cypress/integration/2-advanced-examples/
+cypress/support/commands.js
+cypress/fixtures/example.json
+cypress/plugins/index.js
+cypress/support/index.js
