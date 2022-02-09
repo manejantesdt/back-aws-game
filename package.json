@@ -3,6 +3,13 @@
     "aws-sdk": "^2.1067.0",
     "uuid": "^8.3.2"
   },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "CI=false && react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "cypress:open": "cypress open"
+  },
   "devDependencies": {
     "chai": "^4.3.6",
     "cypress": "^9.4.1",
