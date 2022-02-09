@@ -13,19 +13,32 @@ const getPlayers = async (event) => {
   if (event.queryStringParameters) {
     const { nick_name, order, status, amount } = event?.queryStringParameters;
 
-    if (nick_name) {
-      if (/^\d+$/.test(nick_name)) {
-        let playerId = await dynamodb
-          .get({
-            TableName: "CredituPlayers",
-            Key: {
-              Id: parseInt(nick_name),
-            },
-          })
-          .promise();
-        if (playerId) {
-          playerId = playerId.Item;
-          players = [playerId];
+      if (nick_name) {
+        if (/^\d+$/.test(nick_name)) {
+          let playerId = await dynamodb
+            .get({
+              TableName: "CredituPlayers",
+              Key: {
+                Id: parseInt(nick_name),
+              },
+            })
+            .promise();
+          if (playerId) {
+            playerId = playerId.Item;
+            players = [playerId];
+          } else {
+            players = players.filter((player) =>
+              player.nickname
+                .toLocaleLowerCase()
+                .includes(nick_name.toLocaleLowerCase())
+            );
+            if (players.length === 0) {
+              return {
+                status: 404,
+                body: [],
+              };
+            }
+          }
         } else {
           players = players.filter((player) =>
             player.nickname
@@ -39,20 +52,21 @@ const getPlayers = async (event) => {
             };
           }
         }
-      } else {
-        players = players.filter((player) =>
-          player.nickname
-            .toLocaleLowerCase()
-            .includes(nick_name.toLocaleLowerCase())
-        );
-        if (players.length === 0) {
-          return {
-            status: 404,
-            body: [],
-          };
+      }else if(nick_name === ""){
+        return {
+          status: 404,
+          body: [],
+        };
+      }
+      if ((order && order === "asc") || order === "desc" || order === "") {
+        if (order === "asc" || order === "") {
+          players.sort((a, b) => b.ranking - a.ranking);
+        }
+        if (order === "desc") {
+          players.sort((a, b) => a.ranking - b.ranking);
         }
       }
-    }
+    
     if ((order && order === "asc") || order === "desc" || order === "") {
       if (order === "asc" || order === "") {
         players.sort((a, b) => b.ranking - a.ranking);
