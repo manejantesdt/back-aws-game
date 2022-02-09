@@ -1,5 +1,5 @@
 service: aws-la
-frameworkVersion: '3'
+frameworkVersion: "3"
 
 provider:
   name: aws
@@ -12,14 +12,7 @@ provider:
       Resource: arn:aws:dynamodb:us-east-1:372800600226:table/CredituPlayers
       # Resource: "*"
 
-
 functions:
-  hello:
-    handler: src/handler.hello
-    events:
-      - httpApi:
-          path: /
-          method: get
   createPlayer:
     handler: src/addPlayer.addPlayer
     events:
@@ -44,8 +37,14 @@ functions:
       - httpApi:
           path: /player/{Id}
           method: put
+  deletePlayer:
+    handler: src/deletePlayer.deletePlayer
+    events:
+      - httpApi:
+          path: /player/{Id}
+          method: delete
 
-resources: 
+resources:
   Resources:
     usersTable:
       Type: AWS::DynamoDB::Table
@@ -60,6 +59,5 @@ resources:
         ProvisionedThroughput:
           ReadCapacityUnits: 1
           WriteCapacityUnits: 1
-
 # plugins:
 #   - serverless-webpack
