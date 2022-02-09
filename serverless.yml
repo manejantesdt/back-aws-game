@@ -37,7 +37,7 @@ functions:
       - httpApi:
           path: /player/{Id}
           method: put
-  DeletePlayer:
+  deletePlayer:
     handler: src/deletePlayer.deletePlayer
     events:
       - httpApi:

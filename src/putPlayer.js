@@ -19,7 +19,7 @@ const putPlayer = async (event) => {
           ":status": status,
           ":nickname": nickname,
           ":avatar": avatar,
-          ":ranking": parsentInt(ranking),
+          ":ranking": parseInt(ranking),
         },
         ExpressionAttributeNames: {
           "#status": "status",
