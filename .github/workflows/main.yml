@@ -2,7 +2,7 @@ name: Deploy Dev
 on:
   push:
     branches:
-      - dev
+      - main
 jobs:
   deploy-dev:
     runs-on: ubuntu-latest
@@ -11,6 +11,7 @@ jobs:
     - uses: actions/setup-node@v1
       with:
         node-version: '16.x'
+        if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true
     - name: Install Serverless Framework
       run: npm install -g serverless
     - name: Serverless AWS authentication
