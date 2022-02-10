@@ -9,36 +9,27 @@ const getPlayers = async (event) => {
     .promise();
 
   let players = result.Items;
-
+  var playerSort = players.sort((a, b) => b.score - a.score);
+  var count = 1;
+  playerSort.forEach((g) => {
+    g.ranking = count++;
+  });
   if (event.queryStringParameters) {
     const { nick_name, order, status, amount } = event?.queryStringParameters;
 
-      if (nick_name) {
-        if (/^\d+$/.test(nick_name)) {
-          let playerId = await dynamodb
-            .get({
-              TableName: "CredituPlayers",
-              Key: {
-                Id: parseInt(nick_name),
-              },
-            })
-            .promise();
-          if (playerId) {
-            playerId = playerId.Item;
-            players = [playerId];
-          } else {
-            players = players.filter((player) =>
-              player.nickname
-                .toLocaleLowerCase()
-                .includes(nick_name.toLocaleLowerCase())
-            );
-            if (players.length === 0) {
-              return {
-                status: 404,
-                body: [],
-              };
-            }
-          }
+    if (nick_name) {
+      if (/^\d+$/.test(nick_name)) {
+        let playerId = await dynamodb
+          .get({
+            TableName: "CredituPlayers",
+            Key: {
+              Id: parseInt(nick_name),
+            },
+          })
+          .promise();
+        if (playerId) {
+          playerId = playerId.Item;
+          players = [playerId];
         } else {
           players = players.filter((player) =>
             player.nickname
@@ -52,29 +43,34 @@ const getPlayers = async (event) => {
             };
           }
         }
-      }else if(nick_name === ""){
-        return {
-          status: 404,
-          body: [],
-        };
-      }
-      if ((order && order === "asc") || order === "desc" || order === "") {
-        if (order === "asc" || order === "") {
-          players.sort((a, b) => b.ranking - a.ranking);
+      } else {
+        players = players.filter((player) =>
+          player.nickname
+            .toLocaleLowerCase()
+            .includes(nick_name.toLocaleLowerCase())
+        );
+        if (players.length === 0) {
+          return {
+            status: 404,
+            body: [],
+          };
         }
-        if (order === "desc") {
-          players.sort((a, b) => a.ranking - b.ranking);
-        }
       }
-    
+    } else if (nick_name === "") {
+      return {
+        status: 404,
+        body: [],
+      };
+    }
     if ((order && order === "asc") || order === "desc" || order === "") {
       if (order === "asc" || order === "") {
-        players.sort((a, b) => b.ranking - a.ranking);
+        players.sort((a, b) => a.score - b.score);
       }
       if (order === "desc") {
-        players.sort((a, b) => a.ranking - b.ranking);
+        players.sort((a, b) => b.score - a.score);
       }
     }
+
     if (
       (status && status === "bronce") ||
       status === "plata" ||
@@ -108,7 +104,10 @@ const getPlayers = async (event) => {
   }
   return {
     status: 200,
-    body: { players },
+    body: {
+      players: players,
+      console: playerSort,
+    },
   };
 };
 
