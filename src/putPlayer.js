@@ -1,7 +1,6 @@
 const AWS = require("aws-sdk");
 
 const putPlayer = async (event) => {
-  
   try {
     const dynamodb = new AWS.DynamoDB.DocumentClient();
     var { Id } = event.pathParameters;

@@ -29,3 +29,4 @@ const deletePlayer = async (event) => {
 };
 
 module.exports = { deletePlayer };
+
