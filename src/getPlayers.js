@@ -1,12 +1,14 @@
 const AWS = require("aws-sdk");
 
 const getPlayers = async (event) => {
-  const dynamodb = new AWS.DynamoDB.DocumentClient();
-  const result = await dynamodb
-    .scan({
-      TableName: "CredituPlayers",
-    })
-    .promise();
+  try {
+    const dynamodb = new AWS.DynamoDB.DocumentClient();
+    const result = await dynamodb
+      .scan({
+        TableName: "CredituPlayers",
+      })
+      .promise();
+
 
   let players = result.Items;
   var playerSort = players.sort((a, b) => b.score - a.score);
@@ -16,6 +18,7 @@ const getPlayers = async (event) => {
   });
   if (event.queryStringParameters) {
     const { nick_name, order, status, amount } = event?.queryStringParameters;
+
 
     if (nick_name) {
       if (/^\d+$/.test(nick_name)) {
@@ -56,6 +59,7 @@ const getPlayers = async (event) => {
           };
         }
       }
+
     } else if (nick_name === "") {
       return {
         status: 404,
@@ -92,16 +96,24 @@ const getPlayers = async (event) => {
           return player.status === "bronce";
         });
       }
-      if (status === "oro") {
-        players = players.filter((player) => {
-          return player.status === "oro";
-        });
+      if (amount) {
+        players = players.slice(0, parseInt(amount));
       }
     }
-    if (amount) {
-      players = players.slice(0, parseInt(amount));
-    }
+    return {
+      status: 200,
+      body: { players },
+    };
+  } catch (e) {
+    console.error(e);
+    response.statusCode = 500;
+    response.body = JSON.stringify({
+      message: "Failed to get players.",
+      errorMsg: e.message,
+      errorStack: e.stack,
+    });
   }
+
   return {
     status: 200,
     body: {
@@ -109,6 +121,7 @@ const getPlayers = async (event) => {
       console: playerSort,
     },
   };
+
 };
 
 module.exports = {
