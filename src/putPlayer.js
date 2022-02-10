@@ -1,25 +1,40 @@
 const AWS = require("aws-sdk");
 
 const putPlayer = async (event) => {
-  
   try {
     const dynamodb = new AWS.DynamoDB.DocumentClient();
     var { Id } = event.pathParameters;
     Id = parseInt(Id);
-    const { avatar, score, ranking, status, nickname } = JSON.parse(event.body);
+    const { avatar, score, nickname } = JSON.parse(event.body);
+    
+    var newScore = parseInt(score);
+    var status = "";
+    if (86510 <= newScore && newScore <= 116510) {
+      status = "oro";
+    }
+    else if (56510 <= newScore && newScore < 86510) {
+      status = "plata";
+    }
+    else if (50512 <= newScore && newScore < 56510) {
+      status = "bronce";
+    }
+    else if ( newScore < 56510) {
+      status = "hierro";
+    }
 
     await dynamodb
       .update({
         TableName: "CredituPlayers",
         Key: { Id },
         UpdateExpression:
-          "set score = :score, #status=:status ,nickname = :nickname, avatar = :avatar, ranking = :ranking",
+          "set score = :score, #status=:status ,nickname = :nickname, avatar = :avatar",
+        // "set newScore = :newScore, #status=:status ,nickname = :nickname, avatar = :avatar, ranking = :ranking",
         ExpressionAttributeValues: {
-          ":score": score,
+          ":score": parseInt(newScore),
           ":status": status,
           ":nickname": nickname,
           ":avatar": avatar,
-          ":ranking": parseInt(ranking),
+          // ":ranking": parseInt(ranking),
         },
         ExpressionAttributeNames: {
           "#status": "status",
