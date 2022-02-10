@@ -13,12 +13,19 @@ const getPlayerId = async (event) => {
         },
       })
       .promise();
-
     const player = result.Item;
-    return {
-      status: 200,
-      body: player,
-    };
+    if (!player) {
+      return {
+        status: 500,
+        body: player,
+        message: "Id not found",
+      };
+    } else {
+      return {
+        status: 200,
+        body: player,
+      };
+    }
   } catch (e) {
     console.error(e);
     response.statusCode = 500;
