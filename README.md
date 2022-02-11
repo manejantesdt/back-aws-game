@@ -35,7 +35,7 @@ Sigue las indicaciones en la sección **Despliegue** para conocer como desplegar
 
 ### Pre-requisitos 📋
 
-Para instalar esta aplicaicón es necesario contar con la última versión estable de Node y NPM. Asegúrate de contar con ellas para poder instalar correctamente las dependencias necesarias para correr el proyecto.
+Para instalar esta aplicación es necesario contar con la última versión estable de Node y NPM. Asegúrate de contar con ellas para poder instalar correctamente las dependencias necesarias para correr el proyecto.
 
 Actualmente las versiones necesarias son:
 
@@ -60,34 +60,10 @@ Este paso instalará los paquetes (dependencias) utilizados en el proyecto de fo
 
 Este paso ejecuta un comando especificado en la propiedad "start" dentro de los "scripts" en el archivo package.json. En este caso, le indicamos que despliegue la aplicación en el navegador. 
 
-Este comando abrirá [http://localhost:3000](http://localhost:3000) en tu navegador.
+Este comando abrirá [http://localhost:3001](http://localhost:3001) en tu navegador.
 
 La página se volverá a descargar si haces cambios en el código.
 También podrás ver si hay errores en la consola.
-
-## ¿Qué puedo hacer en la versión online? 💡
-
-Cuando visitas la página web verás que hemos creado un "Salón de la fama de jugadores", donde se despliega una interfaz con los 10
-jugadores con mayor ranking, incluyendo id, nickname, ranking, status y avatar.
-
-<p align='left'>
-    <img height="120" src='https://drive.google.com/thumbnail?id=1ZhFz6JMOtT3107w-z2KuO0PZMOKEzIYx' </img>
-</p> 
-
-Puedes ver efectivamente que en el panel superior, en la sección titulada "Top Ten", aparecen las tarjetas de los 10 jugadores con mayor ranking de toda la aplicación, que cuenta actualmente con una base de datos de más de tres mil jugadores.
-
-En el panel central, puedes ver en el podio, en un lugar destacado, a los 3 mejores de esos 10 primeros. 
-
-<p align='left'>
-    <img height="150" src='http://game-prueba-client.s3-website-us-east-1.amazonaws.com/static/media/podio.56d7824ee98f76bacb0e.png' </img>
-</p> 
-
-En el panel inferior, llamado "Jugadores Destacdados", puedes ver 6 jugadores destacados - es decir, 10 forman parte del Top Ten y otros 6 forman parte de Bold Players porque quisimos que esos jugadores también tengan un lugar dentro del Salón de la Fama.
-
-Al hacer click sobre la tarjeta de cualquier jugador, puedes mirar los detalles específicos de ese jugador:  Id, avatar, nickname, status y ranking. 
-Puedes navegar por todo el sitio web, ir a la pestaña "Create Player" (crear un jugador), donde podrás elegir tu nickname, tu avatar favorito, tu status y tu puntaje dentro del campo "ranking". 
-
-También puedes editar los jugadores que están creados, e incluso borrarlos.
 
 # Desarrollo
 
@@ -100,21 +76,10 @@ También puedes editar los jugadores que están creados, e incluso borrarlos.
 
 ## Boiler Plate
 
-El boilerplate cuenta con dos carpetas: `api` y `client`. En estas carpetas estará el código del back-end y el front-end respectivamente.
+El boilerplate cuenta con dos carpetas: `back-aws-game` y `game-prueba-client`. En estas carpetas estará el código del back-end y el front-end respectivamente.
 
-Creamos una base de datos llamada `CredituPlayers` utilizando Dynamo.
+El contenido de `back-aws-game` fue creado usando: Serverless de Amazon.
 
-El contenido de `client` fue creado usando: Create React App.
-
-### Aplicación del Salón de la fama
-
-- Registro encriptado. Los usuarios deben tener la oportunidad de crear una cuenta de forma rápida y segura con sus cuentas de redes sociales o Gmail.
-- Búsqueda de jugadores. Si el texto de la búsqueda es una coincidencia exacta con el id de un jugador, se despliega esta única coincidencia. De lo contrario, se
-muestran, usando paginación, todas aquellas coincidencias que en sus atributos nickname y/o status contengan la búsqueda ordenados por ranking.
-- La búsqueda de un jugador incluye filtros de acuerdo al atributo status y ordenados por ranking.
-- Editar un jugador.  Al editar un jugador, puedes manipular todos los campos asociados excepto el id del mismo.
-- Creación de un nuevo jugador. Podrás crear un jugador ingresando el campo nickname y, opcionalmente, seleccionar un avatar.
-- About. En la ruta /about encontrarás información acerca de Recicle Being.
 
 ## Backend
 
@@ -144,7 +109,7 @@ Se desarrolla sin servidor con las siguientes rutas:
   - PUT - https://mrsemsqfk6.execute-api.us-east-1.amazonaws.com/player/{Id}
   - DELETE - https://mrsemsqfk6.execute-api.us-east-1.amazonaws.com/player/{Id}
 
-### Creamos una base de datos llamada `CredituPlayers` utilizando Dynamo.
+### Creamos una base de datos llamada `CredituPlayers` utilizando Dynamo. 
   
 #### El modelo de la base de datos contiene las siguientes entidades:
 
@@ -178,7 +143,7 @@ Da un ejemplo
 
 ## Despliegue 📦
 
-_Aquí te dejamos instrucciones paso a paso sobre como hacer el deploy de este proyecto utilizando el servicio S3 de AWS_
+_Aquí te dejamos instrucciones paso a paso sobre como hacer el deploy de este proyecto utilizando los servicios de AWS_
 
 Lo primero que tenemos que hacer para es [crear una cuenta en la página web de amazon web services]  (https://docs.aws.amazon.com) o inicar sesión si ya tenemos una cuenta.
 En los servicios de AWS buscamos IAM para [crear un nuevo usuario IAM] (https://docs.aws.amazon.com/es_es/es_es/IAM/latest/UserGuide/id_roles_create.html). 
@@ -267,24 +232,7 @@ Reemplaza donde dice "example-backet" por el nombre de tu backet. Guardas los ca
 
 En la consola de Visual Studio, ejectua el siguiente comando:
 
-### `npm run build #`
 
-Lo que hace este comando es crear el fichero "build", es decir, todos los ficheros que se tienen que subir a un servidor para que funcione. Este comando
-si abrimos nuestro archivo package.json está dentro de los "scripts", así:
-
-```sh
-"build": "react-scripts build",
-```
-
-El script deploy toma la carpeta "build" y la sube al S3, y la publica con "public-read" (para que la gente la pueda leer).
-
-Así que ahora puedes introducir el siguiente comando:
-
-### `npm run deploy`
-
-Esto se va a ocupar de subir tu aplicación al S3 de Amazon. Cuando termine, puedes ir a tu cuenta de Amazon, buscar tu backet y ver que todo lo que contiene la carpeta build se ha subido automáticamente con el comando deploy desde tu consola. 
-
-Si dentro de los archivos pinchas en el archivo index.html, verás que tienes la ruta (url del objeto). Si haces click te llevará a tu página web. Verás la página que hemos construido con todos los archivos que has descargado. 
 
 De esta manera has subido nuestra aplicación de React a un backet de AWS 😊
 
