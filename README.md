@@ -143,6 +143,8 @@ Se desarrolla sin servidor con las siguientes rutas:
   - GET - https://mrsemsqfk6.execute-api.us-east-1.amazonaws.com/player/{Id}
   - PUT - https://mrsemsqfk6.execute-api.us-east-1.amazonaws.com/player/{Id}
   - DELETE - https://mrsemsqfk6.execute-api.us-east-1.amazonaws.com/player/{Id}
+
+### Creamos una base de datos llamada `CredituPlayers` utilizando Dynamo.
   
 #### El modelo de la base de datos contiene las siguientes entidades:
 
