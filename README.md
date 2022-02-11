@@ -86,19 +86,19 @@ El contenido de `back-aws-game` fue creado usando: Serverless de Amazon.
 Se desarrolla sin servidor con las siguientes rutas:
   
 ##### Usuarios:  
-- [ ] __GET /players__:
+- [ ] __GET /player__:
   - Obtiene un listado de jugadores registrados
   - Debe devolver solo los datos necesarios para la ruta principal
-- [ ] __GET /player/?name="..."__:
+- [ ] __GET /player?name="..."__:
   - Obtener un listado de los jugadores que contengan la palabra ingresada como query parameter
 - [ ] __GET /player/{id}__:
   - Obtener el detalle de un jugador en particular
-- [ ] __PUT /player__:
+- [ ] __PUT /player/{id}__:
   - Permite modificar campos de un jugador creado  
 - [ ] __POST /player__:
   - Recibe los datos recolectados desde el formulario controlado de la ruta de creación de un nuevo jugador por body
   - Crea una nuevo jugador en la base de datos
-- [ ] __DELETE /player__:
+- [ ] __DELETE /player{id}__:
   - Permite eliminar un jugador creado 
 
 ### Los endpoints utilizados son:
@@ -109,9 +109,9 @@ Se desarrolla sin servidor con las siguientes rutas:
   - PUT - https://mrsemsqfk6.execute-api.us-east-1.amazonaws.com/player/{Id}
   - DELETE - https://mrsemsqfk6.execute-api.us-east-1.amazonaws.com/player/{Id}
 
-### Creamos una base de datos llamada `CredituPlayers` utilizando Dynamo. 
+### Creamos una base de datos llamada `CredituPlayers` utilizando AWS Dynamo.
   
-#### El modelo de la base de datos contiene las siguientes entidades:
+#### El modelo de la base de datos contiene la siguiente entidad:
 
 - [ ] Jugadores con las siguientes propiedades:
   - Id * - número que funciona como identificador único del jugador
@@ -119,6 +119,7 @@ Se desarrolla sin servidor con las siguientes rutas:
   - status  - string que contiene el estado del jugador [oro, plata o bronce]
   - ranking - número que representa su posición en los resultados del juego
   - avatar - string que representa el avatar asociado al jugador
+  - score - puntos totales ganados por el jugador
 
 
 ## Ejecutando las pruebas ⚙️
@@ -243,9 +244,10 @@ De esta manera has subido nuestra aplicación de React a un backet de AWS 😊
 * [Dynamo](https://aws.amazon.com/es/dynamodb) - Amazon DynamoDB es una base de datos NoSQL de clave de valor sin servidor completamente administrada que está diseñada para ejecutar aplicaciones de alto rendimiento a cualquier escala.
 * [Api Gateway](https://aws.amazon.com/es/api-gateway/) - un servicio completamente administrado que facilita la creación y la publicación de API a cualquier escala.
 * [Lambda](https://aws.amazon.com/es/lambda) - un servicio informático sin servidor y basado en eventos que nos permite ejecutar código sin necesidad de administrar servidores.
-* [Serverless](https://aws.amazon.com/es/s3/) - Almacenamiento de objetos de Amazon creado para recuperar cualquier volumen de datos desde cualquier ubicación
+* [Serverless](https://www.serverless.com/) - Es un framework para crear, implementar y administrar recursos en AWS (también admite la configuración de otros proveedores de la nube). Se especifican en un archivo yml la configuración de recursos (como la creación de roles de AWS para funciones específicas, base de datos DynamoDB, API Gateway, etc). etc. Nos permite desplegar aplicaciones backend como funciones independientes que serán desplegadas hacia AWS Lambda. 
 * [CloudFormation](https://aws.amazon.com/es/cloudformation/)
-* [Cypress](https://www.cypress.io/) - Un framework de testing moderno, es una de las herramientas más populares de testing
+* [Node](https://nodejs.org/es/) - Es un entorno de ejecución de JavaScript orientado a eventos asíncronos, que está diseñado para crear aplicaciones network escalables.
+* [Cypress](https://www.cypress.io/) - Un framework de testing moderno, es actualmente una de las herramientas más populares de testing.
 
 
 ## Autores ✒️
@@ -254,7 +256,7 @@ De esta manera has subido nuestra aplicación de React a un backet de AWS 😊
 * **Marisa Lia Pascal ** - [Marisaliap](https://github.com/Marisaliap)
 * **Nelson Albera ** - [nalbera](https://github.com/nalbera)
 * **Gustavo Montero ** - [gamontero](https://github.com/gamontero)
-* **Daneil Alberto Mena ** - [BtoMJ](https://github.com/BtoMJ)
+* **Daniel Alberto Mena ** - [BtoMJ](https://github.com/BtoMJ)
 * **Fabrizio Santandrea ** - [fabsantandrea](https://github.com/fabsantandrea)
 
 
