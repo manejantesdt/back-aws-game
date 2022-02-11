@@ -252,6 +252,8 @@ De esta manera has subido nuestra aplicación de React a un backet de AWS 😊
 * **Nelson Albera ** - [nalbera](https://github.com/nalbera)
 * **Gustavo Montero ** - [gamontero](https://github.com/gamontero)
 * **Daniel Alberto Mena ** - [BtoMJ](https://github.com/BtoMJ)
+
+#### Una mención especial por su compañerismo y su aporte a este proyecto para
 * **Fabrizio Santandrea ** - [fabsantandrea](https://github.com/fabsantandrea)
 
 
