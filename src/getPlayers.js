@@ -3,21 +3,21 @@ const AWS = require("aws-sdk");
 const getPlayers = async (event) => {
   try {
     const dynamodb = new AWS.DynamoDB.DocumentClient();
+    const { nick_name, order, status, amount } = event?.queryStringParameters;
     const result = await dynamodb
       .scan({
         TableName: "CredituPlayers",
       })
       .promise();
 
-    let players = result.Items;
+    var players = result.Items;
     var playerSort = players.sort((a, b) => b.score - a.score);
     var count = 1;
     playerSort.forEach((g) => {
       g.ranking = count++;
     });
-    if (event.queryStringParameters) {
-      const { nick_name, order, status, amount } = event?.queryStringParameters;
 
+    if (event.queryStringParameters) {
       if (nick_name) {
         if (/^\d+$/.test(nick_name)) {
           let playerId = await dynamodb
@@ -28,6 +28,7 @@ const getPlayers = async (event) => {
               },
             })
             .promise();
+
           if (playerId) {
             playerId = playerId.Item;
             players = [playerId];
@@ -37,6 +38,7 @@ const getPlayers = async (event) => {
                 .toLocaleLowerCase()
                 .includes(nick_name.toLocaleLowerCase())
             );
+
             if (players.length === 0) {
               return {
                 status: 404,
@@ -50,6 +52,7 @@ const getPlayers = async (event) => {
               .toLocaleLowerCase()
               .includes(nick_name.toLocaleLowerCase())
           );
+
           if (players.length === 0) {
             return {
               status: 404,
@@ -57,12 +60,14 @@ const getPlayers = async (event) => {
             };
           }
         }
+
       } else if (nick_name === "") {
         return {
           status: 404,
           body: [],
         };
       }
+
       if ((order && order === "asc") || order === "desc" || order === "") {
         if (order === "asc" || order === "") {
           players.sort((a, b) => a.score - b.score);
