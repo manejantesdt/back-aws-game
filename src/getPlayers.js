@@ -2,109 +2,108 @@ const AWS = require("aws-sdk");
 
 const getPlayers = async (event) => {
   try {
-    const dynamodb = new AWS.DynamoDB.DocumentClient();
+    // ----------------------------------<constantes>--------------------------------------
     const { nick_name, order, status, amount } = event?.queryStringParameters;
-    const result = await dynamodb
-      .scan({
-        TableName: "CredituPlayers",
-      })
-      .promise();
+    const dynamodb = new AWS.DynamoDB.DocumentClient();
+    const result = (
+      await dynamodb
+        .scan({
+          TableName: "CredituPlayers",
+        })
+        .promise()
+    ).Items;
+    // ______________________________________________________________________________________
 
-    var players = result.Items;
-    var playerSort = players.sort((a, b) => b.score - a.score);
+    // ----------------------------------<variables>-----------------------------------------
+    var playeResult = result;
+    var players = playeResult.sort((a, b) => b.score - a.score);
     var count = 1;
-    playerSort.forEach((g) => {
+    players.forEach((g) => {
       g.ranking = count++;
     });
-
-    if (event.queryStringParameters) {
+    var getPlayers = players;
+    // ______________________________________________________________________________________
+    
+    // ----------------------------------<busqueda name y id>--------------------------------
+    if (event?.queryStringParameters) {
       if (nick_name) {
         if (/^\d+$/.test(nick_name)) {
-          let playerId = await dynamodb
+          let playerId = (
+            await dynamodb
             .get({
               TableName: "CredituPlayers",
               Key: {
                 Id: parseInt(nick_name),
               },
             })
-            .promise();
-
-          if (playerId) {
-            playerId = playerId.Item;
-            players = [playerId];
-          } else {
-            players = players.filter((player) =>
-              player.nickname
-                .toLocaleLowerCase()
-                .includes(nick_name.toLocaleLowerCase())
-            );
-
-            if (players.length === 0) {
-              return {
-                status: 404,
-                body: [],
-              };
-            }
-          }
-        } else {
-          players = players.filter((player) =>
-            player.nickname
-              .toLocaleLowerCase()
-              .includes(nick_name.toLocaleLowerCase())
-          );
-
-          if (players.length === 0) {
-            return {
-              status: 404,
-              body: [],
-            };
-          }
+            .promise()
+            ).Item;
+            let playerSearch = [playerId];
+            let id = playerSearch[0].Id;
+          players = players.filter((p) => p.Id === id);
         }
-
+        if (!/^\d+$/.test(nick_name)) {
+          players = players.filter((player) =>
+          player.nickname
+          .toLocaleLowerCase()
+          .includes(nick_name.toLocaleLowerCase())
+          );
+        }
       } else if (nick_name === "") {
-        return {
-          status: 404,
-          body: [],
-        };
+        players = [];
       }
-
+      // ______________________________________________________________________________________
+      
+      //--------------------------------<order>------------------------------------------------
+      
       if ((order && order === "asc") || order === "desc" || order === "") {
         if (order === "asc" || order === "") {
-          players.sort((a, b) => a.score - b.score);
+          players = players.sort((a, b) => a.score - b.score);
         }
         if (order === "desc") {
-          players.sort((a, b) => b.score - a.score);
+          players = players.sort((a, b) => b.score - a.score);
         }
       }
-
+      // ______________________________________________________________________________________
+      
+      //--------------------------------<status>------------------------------------------------
       if (
         (status && status === "bronce") ||
         status === "plata" ||
         status === "oro" ||
         status === "hierro"
-      ) {
-        if (status === "hierro") {
-          players = players.filter((player) => {
-            return player.status === "hierro";
-          });
-        }
-        if (status === "plata") {
-          players = players.filter((player) => {
-            return player.status === "plata";
-          });
-        }
-        if (status === "bronce") {
-          players = players.filter((player) => {
-            return player.status === "bronce";
-          });
-        }
-        if (amount) {
-          players = players.slice(0, parseInt(amount));
+        ) {
+          if (status === "oro") {
+            players = players.filter((player) => {
+              return player.status === "oro";
+            });
+          }
+          if (status === "bronce") {
+            players = players.filter((player) => {
+              return player.status === "plata";
+            });
+          }
+          if (status === "plata") {
+            players = players.filter((player) => {
+              return player.status === "bronce";
+            });
+          }
+          if (status === "hierro") {
+            players = players.filter((player) => {
+              return player.status === "hierro";
+            });
+          }
+          // ______________________________________________________________________________________
+          if (amount) {
+            players = players.slice(0, parseInt(amount));
         }
       }
       return {
         status: 200,
-        body: { players },
+        body: {
+          players: players,
+          getPlayers: getPlayers,
+        },
       };
     }
   } catch (e) {
@@ -115,14 +114,6 @@ const getPlayers = async (event) => {
       errorMsg: e.message,
       errorStack: e.stack,
     });
-
-    return {
-      status: 200,
-      body: {
-        players: players,
-        console: playerSort,
-      },
-    };
   }
 };
 
