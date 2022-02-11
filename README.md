@@ -56,14 +56,9 @@ Para tener un entorno de desarrollo ejecutándose en tu computadora, en el direc
 
 Este paso instalará los paquetes (dependencias) utilizados en el proyecto de forma rápida y cómoda.
 
-### `npm start`
+## Despliegue 📦
 
-Este paso ejecuta un comando especificado en la propiedad "start" dentro de los "scripts" en el archivo package.json. En este caso, le indicamos que despliegue la aplicación en el navegador. 
-
-Este comando abrirá [http://localhost:3001](http://localhost:3001) en tu navegador.
-
-La página se volverá a descargar si haces cambios en el código.
-También podrás ver si hay errores en la consola.
+xxxx.....
 
 # Desarrollo
 
