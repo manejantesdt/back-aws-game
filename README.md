@@ -48,7 +48,7 @@ Este paso instalará los paquetes (dependencias) utilizados en el proyecto de fo
 
 Para el despliegue de este proyecto se utilizó la plantilla aws-nodejs para hacer una HTTP API con Node.js corriendo en AWS Lambda y API Gateway, utilizando Serverless Framework. Si tienes experiencia utilizando estos servicios, sigue adelante con las indicaciones en este documento.
 
-_AWS ofrece una gran variedad de servicios y si es la primera vez que los utilizas, puede ser bastante confuso... te lo decimos por experiencia! 😊 Por eso hemos preparado un tutorial con indicaciones detalladas, paso-a-paso. Sigue las indicaciones en el [documento **DEPLOY_BACKEND.md**](https://github.com/manejantesdt/game-prueba-client/blob/dev/DEPLOY_BACKEND.md) de este repositorio para desplegar este proyecto con todas sus funcionalidades._
+_AWS ofrece una gran variedad de servicios y si es la primera vez que los utilizas, puede ser bastante confuso... te lo decimos por experiencia! 😊 Por eso hemos preparado un tutorial con indicaciones detalladas, paso-a-paso. Sigue las indicaciones en el [documento **DEPLOY_BACKEND.md**](https://github.com/manejantesdt/back-aws-game/blob/dev/DEPLOY_BACKEND.md) de este repositorio para desplegar este proyecto con todas sus funcionalidades._
 
 #### A continuación te dejamos algunos comandos y sugerencias para realizar pruebas:
 
