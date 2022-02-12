@@ -4,7 +4,7 @@ _AWS ofrece una gran variedad de servicios y si es la primera vez que los utiliz
 
 ## Comenzando 🚀
 
-#### Crea las Credenciales de tu cuenta de AWS
+#### Creando las Credenciales de tu cuenta de AWS
 
 Lo primero que tienes que hacer es [crear una cuenta en la página web de amazon web services] (https://docs.aws.amazon.com) o iniciar sesión si ya tienes una cuenta.
 
