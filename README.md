@@ -190,7 +190,7 @@ _Explica como ejecutar las pruebas automatizadas para este sistema_
 _Explica que verifican estas pruebas y por qué_
 
 ```
-Da un ejemplo
+Dar un ejemplo
 ```
 
 ### Y las pruebas de estilo de codificación ⌨️

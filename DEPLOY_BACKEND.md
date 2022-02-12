@@ -148,7 +148,7 @@ En los archivos descargados de nuestro repositorio, en la carpeta back-aws-game,
 
 <p align='left'>
     <img height="150" src='https://github.com/manejantesdt/back-aws-game/blob/dev/Screenshot_src.png' </img>
-</p> 
+</p>
 
 Tendrás que abrir cada uno de esos archivos, identificar cada una de las líneas de código donde diga "TableName:", y reemplazar "CredituPlayers" por el nombre de tu tabla, la que acabas de crear en el paso anterior. Al guardar todos los cambios, tendrás listas tus funciones de lambda.
 
@@ -236,7 +236,7 @@ Cuando deployas por defecto en Serverless, eso descargará todo el código en ca
 
 <p align='left'>
     <img height="70" src='https://github.com/manejantesdt/back-aws-game/blob/dev/Screenshot_plugins.png' </img>
-</p> 
+</p>
 
 Para que esto funcione también tenemos que indicarle que cada una de las funciones lambda sea empaquetada individualmente. En serverless.yml, debajo de los plugins, agregamos este código:
 
