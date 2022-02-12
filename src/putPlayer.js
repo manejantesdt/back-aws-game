@@ -29,14 +29,14 @@ const putPlayer = async (event) => {
     return {
       statusCode: 200,
       body: JSON.stringify({
-        message: "task updated",
+        message: "Player updated",
       }),
     };
   } catch (e) {
     console.error(e);
     response.statusCode = 500;
     response.body = JSON.stringify({
-      message: "Failed to delete post.",
+      message: "Failed to edit player.",
       errorMsg: e.message,
       errorStack: e.stack,
     });

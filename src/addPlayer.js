@@ -41,7 +41,7 @@ const addPlayer = async (event) => {
     console.error(e);
     response.statusCode = 500;
     response.body = JSON.stringify({
-      message: "Failed to delete post.",
+      message: "Failed to add a new player.",
       errorMsg: e.message,
       errorStack: e.stack,
     });
