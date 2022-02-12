@@ -4,48 +4,95 @@ const putPlayer = async (event) => {
   try {
     const dynamodb = new AWS.DynamoDB.DocumentClient();
     var { Id } = event.pathParameters;
-    Id = parseInt(Id);
     const { avatar, score, nickname } = JSON.parse(event.body);
-    
     var newScore = parseInt(score);
-    var status = "";
-    if (86510 <= newScore && newScore <= 116510) {
-      status = "oro";
-    }
-    else if (56510 <= newScore && newScore < 86510) {
-      status = "plata";
-    }
-    else if (50512 <= newScore && newScore < 56510) {
-      status = "bronce";
-    }
-    else if ( newScore < 56510) {
-      status = "hierro";
+
+    if (Id) {
+      Id = parseInt(Id);
+      var status = "";
+
+      if ((86510 <= newScore && newScore <= 116510) || newScore >= 116510) {
+        status = "oro";
+      } else if (56510 <= newScore && newScore < 86510) {
+        status = "plata";
+      } else if (50512 <= newScore && newScore < 56510) {
+        status = "bronce";
+      } else if (newScore < 56510) {
+        status = "hierro";
+      }
+
+      let update = await dynamodb
+        .update({
+          TableName: "CredituPlayers",
+          Key: { Id },
+          UpdateExpression:
+            "set score = :score, #status=:status ,nickname = :nickname, avatar = :avatar",
+          ExpressionAttributeValues: {
+            ":score": parseInt(newScore),
+            ":status": status,
+            ":nickname": nickname,
+            ":avatar": avatar,
+          },
+          ExpressionAttributeNames: {
+            "#status": "status",
+          },
+          ReturnValues: "ALL_NEW",
+        })
+        .promise();
+
+      if (update) {
+        const search = 
+          (
+            await dynamodb
+              .scan({
+                TableName: "CredituPlayers",
+              })
+              .promise()
+          ).Items
+         
+        var players = search.sort((a, b) => b.score - a.score);
+        var count = 1;
+        players.forEach((g) => {
+          g.ranking = count++;
+        });
+        if (players) {
+          // const delay = (ms) => new Promise((res) => setTimeout(res, ms));
+            players.forEach(async (player) => {
+              // await delay(1000);
+              await dynamodb
+                .update({
+                  TableName: "CredituPlayers",
+                  Key: { Id: player.Id },
+                  UpdateExpression:
+                    "set score = :score, #status=:status ,nickname = :nickname, avatar = :avatar, ranking = :ranking",
+                  ExpressionAttributeValues: {
+                    ":score": player.score,
+                    ":status": player.status,
+                    ":nickname": player.nickname,
+                    ":avatar": player.avatar,
+                    ":ranking": player.ranking,
+                  },
+                  ExpressionAttributeNames: {
+                    "#status": "status",
+                  },
+                  ReturnValues: "ALL_NEW",
+                })
+                .promise();
+            });
+        }
+        return {
+          statusCode: 200,
+          body: JSON.stringify({
+            message: "all players updated",
+          }),
+        };
+      }
     }
 
-    await dynamodb
-      .update({
-        TableName: "CredituPlayers",
-        Key: { Id },
-        UpdateExpression:
-          "set score = :score, #status=:status ,nickname = :nickname, avatar = :avatar",
-        // "set newScore = :newScore, #status=:status ,nickname = :nickname, avatar = :avatar, ranking = :ranking",
-        ExpressionAttributeValues: {
-          ":score": parseInt(newScore),
-          ":status": status,
-          ":nickname": nickname,
-          ":avatar": avatar,
-          // ":ranking": parseInt(ranking),
-        },
-        ExpressionAttributeNames: {
-          "#status": "status",
-        },
-        ReturnValues: "ALL_NEW",
-      })
-      .promise();
     return {
-      statusCode: 200,
+      statusCode: 500,
       body: JSON.stringify({
-        message: "task updated",
+        message: "task not updated",
       }),
     };
   } catch (e) {
