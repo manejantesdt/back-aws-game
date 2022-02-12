@@ -30,7 +30,7 @@ describe("edit playern information", () => {
   });
 
   it("edita los campos correctamente", () => {
-    expect(responsePUT.body.message).to.eq("task updated");
+    expect(responsePUT.body.message).to.eq("all players updated");
     expect(responsePUT.status).to.eq(200);
   });
 });
