@@ -19,7 +19,7 @@ Las siguientes instrucciones te permitirán obtener una copia del proyecto en fu
 1. Forkea el repositorio para tener una copia del mismo en tu cuenta
 2. Clona el repositorio en tu computadora para hacer pruebas
 
-Desplegamos este proyecto con AWS Dynamo, AWS Lambda y API Gateway, utilizando Serverless Framework. Sigue las indicaciones sugeridas en la sección **Despliegue**
+Desplegaremos este proyecto con AWS Dynamo, AWS Lambda y API Gateway, utilizando Serverless Framework. Sigue las indicaciones sugeridas en la sección **Despliegue**
 
 ### Pre-requisitos 📋
 
@@ -68,7 +68,7 @@ functions:
   hello: back-aws-game-dev-hello (1.9 kB)
 ```
 
-_Nota_: En la forma actual, después del despliegue, tu API es pública y puede ser invocada por cualquier persona. Para despliegues de producción, es preferible que quieras onfigurar un autorizador. Para detalles sobre cómo hacer esto, mira esta [documentación sobre http events](https://www.serverless.com/framework/docs/providers/aws/events/apigateway/).
+_Nota_: En la forma actual, después del despliegue, tu API es pública y puede ser invocada por cualquier persona. Para despliegues de producción, es preferible que quieras configurar que alguien lo autorice. Para detalles sobre cómo hacer esto, mira esta [documentación sobre http events](https://www.serverless.com/framework/docs/providers/aws/events/apigateway/).
 
 ### Llamadas
 
@@ -114,7 +114,7 @@ serverless plugin install -n serverless-offline
 
 Esto agregará el plugin `serverless-offline` a las dependencias - `devDependencies` en el archivo `package.json` . También lo agregará a `plugins` en el archivo `serverless.yml`.
 
-Después de la intalación, puedes comenzar a emular localmente con el siguiente comando:
+Después de la instalación, puedes comenzar a emular localmente con el siguiente comando:
 
 ```
 serverless offline
