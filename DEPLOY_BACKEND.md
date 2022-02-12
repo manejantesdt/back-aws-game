@@ -1,134 +1,13 @@
-# Recicle Being - Proyecto Grupal
+## Despliegue 📦
 
-Recicle Being es una página web creada como prueba técnica para la empresa CrediTu.
-La idea general fue crear una aplicación para el salón de la fama de un juego imaginario.
-El desafío consistió en desarrollar una aplicación web usando un framework SPA, requerida por
-los creadores de un juego hipotético que desean ofrecer a sus usuarios la posibilidad de consultar
-quiénes son los jugadores del mismo.
-
-## ¿Puedo ver esta aplicación en vivo? 💻
-
-Claro que sí! Tanto el Front-end como el Back-end fueron deployadas utilizando diferentes servicios en AWS (Lambda, Dynamo, S3).
-Puedes visitar la versión online haciendo click en el siguiente enlace:
-https://dfuf67ce7t2lm.cloudfront.net/
+_AWS ofrece una gran variedad de servicios y si es la primera vez que los utilizas, puede ser bastante confuso... te lo decimos por experiencia! 😊 Por eso hemos preparado este tutorial con indicaciones detalladas, paso-a-paso. Sigue las indicaciones aquí debajo para desplegar este proyecto con todas sus funcionalidades._
 
 ## Comenzando 🚀
 
-_Estas instrucciones te permitirán obtener una copia del proyecto en funcionamiento en tu máquina local para propósitos de pruebas._
-
-Sigue las indicaciones en la sección **Despliegue** para conocer como desplegar el proyecto utilizando los servicios de la nube de AWS.
-
-1. Forkea el repositorio para tener una copia del mismo en tu cuenta
-2. Clona el repositorio en tu computadora para hacer pruebas
-
-### Pre-requisitos 📋
-
-Para instalar esta aplicación es necesario contar con la última versión estable de Node y NPM. Asegúrate de contar con ellas para poder instalar correctamente las dependencias necesarias para correr el proyecto.
-
-Actualmente las versiones necesarias son:
-
-- **Node**: 16.14.0 o mayor
-- **NPM**: 8.4.1 o mayor
-
-Para verificar que versión tienen instalada:
-
-> node -v
->
-> npm –v
-
-### Instalación 🔧
-
-Para tener un entorno de desarrollo ejecutándose en tu computadora, en el directorio del proyecto, debes ejecutar los siguientes comandos:
-
-### `npm install`
-
-Este paso instalará los paquetes (dependencias) utilizados en el proyecto de forma rápida y cómoda.
-
-## Despliegue 📦
-
-xxxx.....
-
-# Desarrollo
-
-## Objetivos del Proyecto
-
-- Construímos una aplicación utilizando React, Javascript, Redux, Express, Styled Components.
-- Utilizamos otras tecnologìas : AWS y Jest
-- Utilizamos la metodología SCRUM trabajando en equipo, mediante el uso de Trello.
-- Pusimos en práctica el workflow de GIT implementando CI (integración continua) y desarrollo continuo.
-
-## Boiler Plate
-
-El boilerplate cuenta con dos carpetas: `back-aws-game` y `game-prueba-client`. En estas carpetas estará el código del back-end y el front-end respectivamente.
-
-El contenido de `back-aws-game` fue creado usando: Serverless y servicios de Amazon.
-
-## Backend
-
-Se desarrolla sin servidor con las siguientes rutas:
-
-##### Usuarios:
-
-- [ ] **GET /player**:
-  - Obtiene un listado de jugadores registrados
-  - Debe devolver solo los datos necesarios para la ruta principal
-- [ ] **GET /player?name="..."**:
-  - Obtener un listado de los jugadores que contengan la palabra ingresada como query parameter
-- [ ] **GET /player/{id}**:
-  - Obtener el detalle de un jugador en particular
-- [ ] **PUT /player/{id}**:
-  - Permite modificar campos de un jugador creado
-- [ ] **POST /player**:
-  - Recibe los datos recolectados desde el formulario controlado de la ruta de creación de un nuevo jugador por body
-  - Crea una nuevo jugador en la base de datos
-- [ ] **DELETE /player{id}**:
-  - Permite eliminar un jugador creado
-
-### Los endpoints utilizados son:
-
-- POST - https://mrsemsqfk6.execute-api.us-east-1.amazonaws.com/player
-- GET - https://mrsemsqfk6.execute-api.us-east-1.amazonaws.com/player
-- GET - https://mrsemsqfk6.execute-api.us-east-1.amazonaws.com/player/{Id}
-- PUT - https://mrsemsqfk6.execute-api.us-east-1.amazonaws.com/player/{Id}
-- DELETE - https://mrsemsqfk6.execute-api.us-east-1.amazonaws.com/player/{Id}
-
-### Creamos una base de datos llamada `CredituPlayers` utilizando AWS Dynamo.
-
-#### El modelo de la base de datos contiene la siguiente entidad:
-
-- [ ] Jugadores con las siguientes propiedades:
-  - Id \* - número que funciona como identificador único del jugador
-  - nickname \* - string que contiene el alias del jugador
-  - status - string que contiene el estado del jugador [oro, plata o bronce]
-  - ranking - número que representa su posición en los resultados del juego
-  - avatar - string que representa el avatar asociado al jugador
-  - score - puntos totales ganados por el jugador
-
-## Ejecutando las pruebas ⚙️
-
-_Explica como ejecutar las pruebas automatizadas para este sistema_
-
-### Analice las pruebas end-to-end 🔩
-
-_Explica que verifican estas pruebas y por qué_
-
-```
-Da un ejemplo
-```
-
-### Y las pruebas de estilo de codificación ⌨️
-
-_Explica que verifican estas pruebas y por qué_
-
-```
-Da un ejemplo
-```
-
-## Despliegue 📦
-
-_Aquí te dejamos instrucciones paso a paso sobre como hacer el deploy de este proyecto utilizando Serverless Framework con los servicios de AWS_
+#### Crea las Credenciales de tu cuenta de AWS
 
 Lo primero que tienes que hacer es [crear una cuenta en la página web de amazon web services] (https://docs.aws.amazon.com) o iniciar sesión si ya tienes una cuenta.
+
 Una vez que hayas iniciado sesión, necesitas configurar un usuario para que Serverless pueda conectarse a tu cuenta.
 
 Para hacer esto, en los servicios de AWS buscamos IAM (Identity and Access Management) para [crear un nuevo usuario IAM] (https://docs.aws.amazon.com/es_es/es_es/IAM/latest/UserGuide/id_roles_create.html).
@@ -142,6 +21,8 @@ En la siguiente ventana, le vamos a asignar los permisos vamos a ir a la opción
 Vamos a continuar en etiquetas, y esto no es algo que debamos configurar para el servicio, así que le damos enter y vamos a "revisar". Clickeamos en crear usuario.
 
 Nuestro usuario se crea y tenemos el Id de acceso y la clave secreta. No reveles tus claves a nadie. Es muy importante que descarges el archivo csv que las contiene y lo guardes o bien las copias en un bloc de notas.
+
+#### Instalando y Configurando Serverless Framework
 
 Después de obtener estas claves vas a ir a tu terminal de Visual Studio Code o de tu editor favorito. Dentro de esta terminal hay que hacer dos cosas: primero necesitamos instalar serverless y
 después tenemos que configurarlo con nuestras credenciales.
@@ -159,6 +40,8 @@ Cuando haya terminado la instalación podemos configurar las credenciales (neces
 _Nota: En --profile le damos un nombre a esta cuenta así que para esto vamos a usar "serverlessUser" (pero puede ser cualquier otro nombre)_
 
 Presiona enter, y esto va a configurar algunas cosas de AWS en serverless. Hasta ahora has creado un usuario en AWS y has usado esas credenciales para crear un rol de serverless en tu equipo.
+
+#### Creando tu Proyecto
 
 Una vez que tengas Serverless instalado y configurado, podemos crear un proyecto usando un comando CLI de serverless. Vamos a usar una plantilla llamada AWS - node.js, y también tenemos que especificar la ruta en la que vamos a construir esta plantilla.
 
@@ -178,9 +61,11 @@ Y luego
 
 Y verás un archivo "handler.js" y otro "serverless.yml"
 
-Abre el archivo serveless.yml en Visual Studio Code, y verás que tienes un sevicio llamado "myServerlessProject", y debajo un provider con algunos detalles, y más abjo unas funciones donde por el momento tiene una función llamada hello que configura el handler con handler.hello, que apunta al archivo handler.js
+Abre el archivo serveless.yml en Visual Studio Code, y verás que tienes un sevicio llamado "myServerlessProject", y debajo un provider con algunos detalles, y más abajo unas funciones donde por el momento tiene una función llamada hello que configura el handler con handler.hello, que apunta al archivo handler.js
 
 handler.js es una archivo javascript donde se exporta una función "hello" que es un evento asíncrono.
+
+#### Desplegando tu Proyecto
 
 Vuelve a nuestro archivo serverless.yml y vamos a hacer un pequeño cambio. Cuando configuramos aws y
 las credenciales de serverless configuramos un perfil; eso significa que si queremos deployar el proyecto usando esas credenciales tenemos que agregar un perfil para el proveedor. Debajo de provider, agregamos estas líneas:
@@ -207,7 +92,11 @@ el código que teníamos en ese archivo. Eso significa que hemos implementado co
 
 Hasta aquí has creado un nuevo proyecto de serverless usando plantillas de serverless, has visto lo que conforma un proyecto de serverless, el archivo serverless.yml y toda la configuración que contiene. Luego lo deployaste y viste cuando estaba siendo creado en tu cuenta de AWS.
 
-Ahora que configuramos nuestra cuenta de AWS con serverless podemos agregar una base de datos de Dynamo a esa cuenta. Vamos a nuestro archivo serverless y lo que puedes hacer es agregar a tus recursos una base de datos que escalará automáticamente. AWS maneja toda la infraestructura por ti, lo que significa que una vez que está configurada escalará de manera automática con la información que cargues en ella, y no tienes que lidiar con los servidores o manejar ninguna de las bases de datos.
+#### Agregando una Base de Datos con DynamoDb
+
+Ahora que configuramos nuestra cuenta de AWS con serverless podemos agregar una base de datos de Dynamo a esa cuenta. Vamos a nuestro archivo serverless y lo que puedes hacer es agregar a tus recursos una base de datos que escalará automáticamente.
+
+AWS maneja toda la infraestructura por nosotros, lo que significa que una vez que está configurada escalará de manera automática con la información que cargues en ella, y no tienes que lidiar con los servidores o manejar ninguna de las bases de datos.
 
 En el código del back-end que descargaste de nuestro repositorio, debajo de "funciones", verás este código:
 
@@ -251,7 +140,9 @@ Guardas el archivo, y en tu terminal ejecutas el siguiente comando:
 
 Lo que hará es compilar esto en la plantilla de cloud formation e implementarlo. Cuando haya terminado de actualizar, tu base de datos de Dynamo debería estar en tu cuenta. Vuelve a tu cuenta de AWS, actualiza la página y busca Dynamo. Ahora podrás ver que se ha creado una base de datos con el nombre que has elegido. Si entras allí verás que no hay ningún elemento dentro de la tabla, pero tendrás Id que es el único campo que tienes hasta ahora.
 
-Usamos aws-sdk para usar funciones que nos permiten obtener datos que se almacenen o bien para agregar nueva información a la base de datos.
+#### Creando Apis con API Gateway y Lambda
+
+En nuestro proyecto necesitamos aws-sdk para usar funciones que nos permiten obtener datos que se almacenen o bien para agregar nueva información a la base de datos de Dynamo.
 
 En los archivos descargados de nuestro repositorio, en la carpeta back-aws-game, abre la carpeta llamada "src". Es la carpeta que contiene las funciones lambda. Verás que contiene 5 archivos de javascrip, que implementan las acciones de agregar, borrar, obtener y editar jugadores de la tabla de Dynamo.
 
@@ -305,17 +196,27 @@ Y esto construirá tus funciones lambda y configurará con los eventos y API Gat
 
 De esta manera, hemos construído unas Apis, por ejemplo getPlayerId, utilizando API Gateway y Lambda, así podemos obtener datos de nuestra base de datos. Lo desplegamos usando serverless. Eso significa que ahora podemos usar nuestro front-end y obtener la información que necesitamos mediante nuestros endpoints.
 
+#### Comprendiendo el proceso...
+
 El proceso fue configurar una lambda que toma un request y que obtiene el Id a través de los parámetros requeridos por un cliente en un endpoint. Esto es pasado a nuestra base de datos de Dynamo utilizando un método GET, que es un método personalizado escrito por nosotros -que toma un Id y el nombre de una base de datos (TableName), y lo transforma en el formato correcto para hacer un request a DynamoDB.DocumentClient. Este es un servicio de AWS SDK que nos permite interactuar con nuestras tablas en nuestra base de datos Dynamo. El request GET retorna los datos y con nuestra API entregamos esa información al cliente.
 
 Puedes usar esto para construír tus propias Apis con todos los datos que quieras. Eso te ayudará a hacer mejores aplicaciones front-end.
 
+#### Agregando o eliminando un jugador de tu tabla DynamoDb
+
 Puedes crear una Api no sólo para obtener datos sino también para agregar datos a tu base de datos, utilizando el método POST, que necesita una solicitud de entrada para ingresar datos a un endpoint de API.
 
-Al crear un método POST y actualizar el proyecto usando el comando "sls deploy" en tu consola, tendrás un nuevo endpoint, con una serie de números random - .execute.api, tu región de la cuenta de AWS, por ejemplo us-east-1, y al final una ruta, por ejemplo "/create-player/{Id}".
+En nuestro repositorio, en la carpeta src donde se encuentran las funciones lambda, hemos creado un método POST. Al actualizar el proyecto usando el comando "sls deploy" en tu consola, tendrás un endpoint, con una serie de números random - .execute.api, tu región de la cuenta de AWS, por ejemplo us-east-1, y al final una ruta, por ejemplo "/create-player/{Id}". Haz click derecho sobre ese endpoint y cópialo.
 
-Haz click derecho sobre ese nuevo endpoint y lo copias. Puedes probar esa ruta utilizando una aplicación como Postman. En la consola de Postman estableces un POST request y pegas tu url. Necesitas agregar un Id al final de la ruta, diferente a cualquier Id que pueda existir en tu tabla de Dynamo. Necesitarás agregar un body. En Postman seleccionas "raw" y JSON. Es un objeto, así que usas llaves, agregas un campo "Nickname" y opcionalmente agregas un campo "Avatar" (puedes agregar la url de una imagen que elijas). Al presionar "Send", obtendrás una respuesta de un nuevo jugador con los datos que le acabas de ingresar.
+Puedes probar esa ruta utilizando una aplicación como Postman. En la consola de Postman estableces un POST request y pegas tu url. Necesitas agregar un Id al final de la ruta, diferente a cualquier Id que pueda existir en tu tabla de Dynamo.
 
-Si ahora vas a tu base de datos de Dynamo y refrescas la página, verás que ahora un nuevo jugador ha sido agregado a tu tabla. Ahora también puedes probar tu ruta GET por Id para obtener ese jugador. Ahora puedes agregar datos a tu DynamoDB desde el front-end.
+Necesitarás agregar un body. En Postman seleccionas "raw" y JSON. Es un objeto, así que usas llaves, agregas un campo "Nickname" y opcionalmente agregas un campo "Avatar" (puedes agregar la url de una imagen de tu preferencia). Al presionar "Send", obtendrás una respuesta de un nuevo jugador con los datos que le acabas de ingresar.
+
+Si ahora vas a tu base de datos de Dynamo en AWS y refrescas la página, verás que ahora un nuevo jugador ha sido agregado a tu tabla. Ahora también puedes probar tu ruta GET por Id para obtener los datos de ese jugador. Y ya puedes probar los demás endpoints, como editar y/o eliminar un jugador.
+
+Ahora puedes agregar o eliminar datos de tu DynamoDB desde el front-end.
+
+#### Reduciendo la cantidad de código con el plugin Serveless Webpack
 
 En el archivo serverless, verás este código:
 
@@ -363,13 +264,11 @@ Eso significa que está minimizado tanto como sea posible. Si ahora ejecutas:
 
 ### `sls deploy`
 
-Se construirá con webpack. Eso comprimirá los archivos y serán más pequeños que antes. Si vas a tu cuenta de AWS, en lambda, entras a alguna de las funciones y bajas para ver el código, verás que en la parte superior hay información relativa a webpack, y más abajo, en la sección principal de código, verás el mismo código que tienes en tu archivo local en esa función, fácil de leer. El código de lambda no es público, así que nadie más que tu podrá leerlo a menos que tenga acceso a tu cuenta. Con webpack nos aseguramos de que sólo el código que necesitamos en lambda, se sube a lambda, y mejora nuestro despliegue.
+Se construirá con webpack; eso comprimirá los archivos y serán más pequeños que antes. Si vas a tu cuenta de AWS, en lambda, entras a alguna de las funciones y bajas para ver el código, verás que en la parte superior hay información relativa a webpack, y más abajo, en la sección principal de código, verás el mismo código que tienes en tu archivo local en esa función, fácil de leer.
 
-Reemplaza donde dice "example-backet" por el nombre de tu backet. Guardas los cambios y ya tienes tu aplicación lista para ser deployada en tu backet de S3 en AWS.
+El código de lambda no es público, así que nadie más que tu podrá leerlo a menos que tenga acceso a tu cuenta. Con webpack nos aseguramos de que sólo el código que necesitamos en lambda, se sube a lambda, y mejora nuestro despliegue.
 
-En la consola de Visual Studio, ejectua el siguiente comando:
-
-De esta manera has subido nuestra aplicación de React a un backet de AWS 😊
+Así llegamos al final de este tutorial. Si llegaste a este punto, habrás desplegado nuestro proyecto back-aws-game con AWS Dynamo, AWS Lambda y API Gateway, utilizando Serverless Framework 😊
 
 ## Construido con 🛠️
 
@@ -408,85 +307,3 @@ Este proyecto está bajo la Licencia de Dream Team Manejantes
 ---
 
 ⌨️ con ❤️ por [Manejantes](https://github.com/manejantesdt) 😊
-
-### Deployment
-
-# Serverless Framework Node HTTP API on AWS
-
-This template demonstrates how to make a simple HTTP API with Node.js running on AWS Lambda and API Gateway using the Serverless Framework.
-
-This template does not include any kind of persistence (database). For more advanced examples, check out the [serverless/examples repository](https://github.com/serverless/examples/) which includes Typescript, Mongo, DynamoDB and other examples.
-
-## Usage
-
-### Deployment
-
-```
-$ serverless deploy
-```
-
-After deploying, you should see output similar to:
-
-```bash
-Deploying aws-node-http-api-project to stage dev (us-east-1)
-
-✔ Service deployed to stack aws-node-http-api-project-dev (152s)
-
-endpoint: GET - https://xxxxxxxxxx.execute-api.us-east-1.amazonaws.com/
-functions:
-  hello: aws-node-http-api-project-dev-hello (1.9 kB)
-```
-
-_Note_: In current form, after deployment, your API is public and can be invoked by anyone. For production deployments, you might want to configure an authorizer. For details on how to do that, refer to [http event docs](https://www.serverless.com/framework/docs/providers/aws/events/apigateway/).
-
-### Invocation
-
-After successful deployment, you can call the created application via HTTP:
-
-```bash
-curl https://xxxxxxx.execute-api.us-east-1.amazonaws.com/
-```
-
-Which should result in response similar to the following (removed `input` content for brevity):
-
-```json
-{
-  "message": "Go Serverless v2.0! Your function executed successfully!",
-  "input": {
-    ...
-  }
-}
-```
-
-### Local development
-
-You can invoke your function locally by using the following command:
-
-```bash
-serverless invoke local --function hello
-```
-
-Which should result in response similar to the following:
-
-```
-{
-  "statusCode": 200,
-  "body": "{\n  \"message\": \"Go Serverless v3.0! Your function executed successfully!\",\n  \"input\": \"\"\n}"
-}
-```
-
-Alternatively, it is also possible to emulate API Gateway and Lambda locally by using `serverless-offline` plugin. In order to do that, execute the following command:
-
-```bash
-serverless plugin install -n serverless-offline
-```
-
-It will add the `serverless-offline` plugin to `devDependencies` in `package.json` file as well as will add it to `plugins` in `serverless.yml`.
-
-After installation, you can start local emulation with:
-
-```
-serverless offline
-```
-
-To learn more about the capabilities of `serverless-offline`, please refer to its [GitHub repository](https://github.com/dherault/serverless-offline).
