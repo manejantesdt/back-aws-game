@@ -147,7 +147,7 @@ En nuestro proyecto necesitamos aws-sdk para usar funciones que nos permiten obt
 En los archivos descargados de nuestro repositorio, en la carpeta back-aws-game, abre la carpeta llamada "src". Es la carpeta que contiene las funciones lambda. Verás que contiene 5 archivos de javascrip, que implementan las acciones de agregar, borrar, obtener y editar jugadores de la tabla de Dynamo.
 
 <p align='left'>
-    <img height="100" src='https://github.com/manejantesdt/back-aws-game/blob/dev/Screenshot_src.png' </img>
+    <img height="150" src='https://github.com/manejantesdt/back-aws-game/blob/dev/Screenshot_src.png' </img>
 </p> 
 
 Tendrás que abrir cada uno de esos archivos, identificar cada una de las líneas de código donde diga "TableName:", y reemplazar "CredituPlayers" por el nombre de tu tabla, la que acabas de crear en el paso anterior. Al guardar todos los cambios, tendrás listas tus funciones de lambda.
