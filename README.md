@@ -137,7 +137,7 @@ Para aprender más sobre las posibilidades de `serverless-offline`, te sugerimos
 
 El boilerplate cuenta con dos carpetas: `back-aws-game` y `game-prueba-client`. En estas carpetas estará el código del back-end y el front-end respectivamente.
 
-El contenido de `back-aws-game` fue creado usando: Serverless y servicios de Amazon.
+El contenido de `back-aws-game` fue creado usando: Node, Serverless Framework, servicios de Amazon y Cypress.
 
 ## Backend
 
