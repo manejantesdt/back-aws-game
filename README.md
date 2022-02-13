@@ -126,10 +126,10 @@ Para aprender más sobre las posibilidades de `serverless-offline`, te sugerimos
 
 ## Objetivos del Proyecto
 
-- Construímos una aplicación utilizando React, Javascript, Redux, Express, Styled Components.
-- Utilizamos otras tecnologìas : AWS y Jest
+- Construímos una aplicación utilizando React, Javascript, Node, Redux, Express, Styled Components.
+- Utilizamos otras tecnologìas : AWS, Serverless Framework, Cypress, Jest
 - Utilizamos la metodología SCRUM trabajando en equipo, mediante el uso de Trello.
-- Pusimos en práctica el workflow de GIT implementando CI (integración continua) y desarrollo continuo.
+- Pusimos en práctica el workflow de GIT implementando CI (integración continua) y DC (desarrollo continuo).
 
 ## Boiler Plate
 
@@ -167,7 +167,7 @@ Se desarrolla sin servidor con las siguientes rutas:
 - PUT - `${URL_API}/player/{Id}`
 - DELETE - `${URL_API}/player/{Id}`
 
-### Creamos una base de datos llamada `CredituPlayers` utilizando AWS Dynamo.
+### Creamos una base de datos con datos de más de 3.000 jugadores utilizando AWS Dynamo.
 
 #### El modelo de la base de datos contiene la siguiente entidad:
 
