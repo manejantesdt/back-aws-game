@@ -6,11 +6,11 @@ _AWS ofrece una gran variedad de servicios y si es la primera vez que los utiliz
 
 ## Creando las Credenciales de tu cuenta de AWS
 
-Lo primero que tienes que hacer es [crear una cuenta en la página web de amazon web services] (https://docs.aws.amazon.com) o iniciar sesión si ya tienes una cuenta.
+Lo primero que tienes que hacer es [crear una cuenta en la página web de amazon web services](https://docs.aws.amazon.com) o iniciar sesión si ya tienes una cuenta.
 
 Una vez que hayas iniciado sesión, necesitas configurar un usuario para que Serverless pueda conectarse a tu cuenta.
 
-Para hacer esto, en los servicios de AWS buscamos IAM (Identity and Access Management) para [crear un nuevo usuario IAM] (https://docs.aws.amazon.com/es_es/es_es/IAM/latest/UserGuide/id_roles_create.html).
+Para hacer esto, en los servicios de AWS buscamos IAM (Identity and Access Management) para [crear un nuevo usuario IAM](https://docs.aws.amazon.com/es_es/es_es/IAM/latest/UserGuide/id_roles_create.html).
 
 Introducimos un nombre de usuario, (por ejemplo ServerlessAccount), y seleccionamos la casilla donde dice "Acceso programático". Este acceso nos permite usar los SDK y otras herramientas CLI que permitirán que el servicio funcione con AWS.
 
