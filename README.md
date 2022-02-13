@@ -128,10 +128,10 @@ Para aprender más sobre las posibilidades de `serverless-offline`, te sugerimos
 
 ## Objetivos del Proyecto
 
-- Construímos una aplicación utilizando React, Javascript, Redux, Express, Styled Components.
-- Utilizamos otras tecnologìas : AWS y Jest
+- Construímos una aplicación utilizando React, Javascript, Node, Redux, Express, Styled Components.
+- Utilizamos otras tecnologìas : AWS, Serverless Framework, Cypress, Jest
 - Utilizamos la metodología SCRUM trabajando en equipo, mediante el uso de Trello.
-- Pusimos en práctica el workflow de GIT implementando CI (integración continua) y desarrollo continuo.
+- Pusimos en práctica el workflow de GIT implementando CI (integración continua) y DC (desarrollo continuo).
 
 ## Boiler Plate
 
