@@ -38,7 +38,7 @@ Para verificar que versión tienen instalada:
 
 ### Instalación 🔧
 
-Para tener un entorno de desarrollo ejecutándose en tu computadora, en el directorio del proyecto, debes ejecutar los siguientes comandos:
+Para tener un entorno de desarrollo ejecutándose en tu computadora, en el directorio del proyecto, debes ejecutar el siguiente comando:
 
 ### `npm install`
 
