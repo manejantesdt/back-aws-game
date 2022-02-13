@@ -169,7 +169,7 @@ Se desarrolla sin servidor con las siguientes rutas:
 - PUT - `${URL_API}/player/{Id}`
 - DELETE - `${URL_API}/player/{Id}`
 
-### Creamos una base de datos llamada `CredituPlayers` utilizando AWS Dynamo.
+### Creamos una base de datos con más de 3.000 jugadores utilizando AWS Dynamo.
 
 #### El modelo de la base de datos contiene la siguiente entidad:
 
@@ -211,6 +211,7 @@ Da un ejemplo
 - [CloudFormation](https://aws.amazon.com/es/cloudformation/)
 - [Node](https://nodejs.org/es/) - Es un entorno de ejecución de JavaScript orientado a eventos asíncronos, que está diseñado para crear aplicaciones network escalables.
 - [Cypress](https://www.cypress.io/) - Un framework de testing moderno, es actualmente una de las herramientas más populares de testing.
+- [GitHub Actions](https://github.com/features/actions) - GitHub Actions es una plataforma de integración continua y entrega continua (CI/CD) que nos facilita la automatización de todos los flujos de trabajo de software. Podemos crear, testear y desplegar nuestro código directamente desde GitHub. El código creado y enviado desde los equipos locales para actualizar el repositorio de GitHub puede ser testeado y desplegado automáticamente. 
 
 ## Autores ✒️
 
