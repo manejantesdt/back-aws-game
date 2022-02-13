@@ -269,20 +269,21 @@ Eso significa que está minimizado tanto como sea posible. Si ahora ejecutas:
 
 Se construirá con webpack; eso comprimirá los archivos y serán más pequeños que antes. Si vas a tu cuenta de AWS, en lambda, entras a alguna de las funciones y bajas para ver el código, verás que en la parte superior hay información relativa a webpack, y más abajo, en la sección principal de código, verás el mismo código que tienes en tu archivo local en esa función, fácil de leer.
 
-El código de lambda no es público, así que nadie más que tu podrá leerlo a menos que tenga acceso a tu cuenta. Con webpack nos aseguramos de que sólo el código que necesitamos en lambda, se sube a lambda, y mejora nuestro despliegue.
+El código de lambda no es público, así que nadie más que tú podrá leerlo a menos que tenga acceso a tu cuenta. Con webpack nos aseguramos de que sólo el código que necesitamos en lambda, se sube a lambda, y mejora nuestro despliegue.
 
 Así llegamos al final de este tutorial. Si llegaste a este punto, habrás desplegado nuestro proyecto back-aws-game con AWS Dynamo, AWS Lambda y API Gateway, utilizando Serverless Framework 😊
 
 ## Construido con 🛠️
 
 - [Serverless](https://www.serverless.com/) - En esta aplicación utilizamos Serverless Framework y lo configuramos con nuestra cuenta de AWS para poder desplegar el código desde nuestro equipo local. Serverless es un framework para crear, implementar y administrar recursos en AWS (también admite la configuración de otros proveedores de la nube). En un archivo .yml se especifica la configuración de recursos (por ejemplo la creación de roles de AWS para funciones específicas, base de datos DynamoDB, API Gateway, etc.) Serverless nos permite desplegar aplicaciones backend como funciones independientes que serán desplegadas hacia AWS Lambda.
-- [Servicios de AWS]:(https://aws.amazon.com/) - Es la plataforma en la nube más adoptada y completa en el mundo
+- [Amazon Web Services](https://aws.amazon.com/) - Es la plataforma en la nube más adoptada y completa en el mundo
 - [Dynamo](https://aws.amazon.com/es/dynamodb) - Amazon DynamoDB es una base de datos NoSQL de clave de valor sin servidor completamente administrada que está diseñada para ejecutar aplicaciones de alto rendimiento a cualquier escala.
 - [Lambda](https://aws.amazon.com/es/lambda) - un servicio informático sin servidor y basado en eventos que nos permite ejecutar código sin necesidad de administrar servidores.
 - [Api Gateway](https://aws.amazon.com/es/api-gateway/) - un servicio completamente administrado que facilita la creación y la publicación de API a cualquier escala.
 - [CloudFormation](https://aws.amazon.com/es/cloudformation/)
 - [Node](https://nodejs.org/es/) - Es un entorno de ejecución de JavaScript orientado a eventos asíncronos, que está diseñado para crear aplicaciones network escalables.
 - [Cypress](https://www.cypress.io/) - Un framework de testing moderno, es actualmente una de las herramientas más populares de testing.
+- [GitHub Actions](https://github.com/features/actions) - GitHub Actions es una plataforma de integración continua y entrega continua (CI/CD) que nos facilita la automatización de todos los flujos de trabajo de software. Podemos crear, testear y desplegar nuestro código directamente desde GitHub. El código creado y enviado desde los equipos locales para actualizar el repositorio de GitHub puede ser testeado y desplegado automáticamente. 
 
 ## Autores ✒️
 
