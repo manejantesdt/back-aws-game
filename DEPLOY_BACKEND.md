@@ -4,7 +4,7 @@ _AWS ofrece una gran variedad de servicios y si es la primera vez que los utiliz
 
 ## Comenzando 🚀
 
-#### Creando las Credenciales de tu cuenta de AWS
+## Creando las Credenciales de tu cuenta de AWS
 
 Lo primero que tienes que hacer es [crear una cuenta en la página web de amazon web services] (https://docs.aws.amazon.com) o iniciar sesión si ya tienes una cuenta.
 
@@ -21,7 +21,7 @@ Vamos a continuar en etiquetas, y esto no es algo que debamos configurar para el
 
 Nuestro usuario se crea y tenemos el Id de acceso y la clave secreta. No reveles tus claves a nadie. Es muy importante que descarges el archivo csv que las contiene y lo guardes o bien las copias en un bloc de notas.
 
-#### Instalando y Configurando Serverless Framework
+## Instalando y Configurando Serverless Framework
 
 Después de obtener estas claves vas a ir a tu terminal de Visual Studio Code o de tu editor favorito. Dentro de esta terminal hay que hacer dos cosas: primero necesitamos instalar serverless y
 después tenemos que configurarlo con nuestras credenciales.
@@ -64,7 +64,7 @@ Abre el archivo serveless.yml en Visual Studio Code, y verás que tienes un sevi
 
 handler.js es una archivo Javascript donde se exporta una función "hello" que es un evento asíncrono.
 
-#### Desplegando tu Proyecto
+## Desplegando tu Proyecto
 
 Vuelve a nuestro archivo serverless.yml y vamos a hacer un pequeño cambio. Cuando configuramos aws y
 las credenciales de Serverless configuramos un perfil; eso significa que si queremos deployar el proyecto usando esas credenciales tenemos que agregar un perfil para el proveedor. Debajo de provider, agregamos estas líneas:
@@ -91,7 +91,7 @@ el código que teníamos en ese archivo. Eso significa que hemos implementado co
 
 Hasta aquí has creado un nuevo proyecto usando plantillas de Serverless, has visto lo que conforma un proyecto de Serverless, el archivo serverless.yml y toda la configuración que contiene. Luego lo deployaste y viste cuando estaba siendo creado en tu cuenta de AWS.
 
-#### Agregando una Base de Datos con DynamoDb
+## Agregando una Base de Datos con DynamoDb
 
 Ahora que configuramos nuestra cuenta de AWS con Serverless podemos agregar una base de datos de Dynamo a esa cuenta. Vamos a nuestro archivo serverless y lo que puedes hacer es agregar a tus recursos una base de datos que escalará automáticamente.
 
@@ -139,7 +139,7 @@ Guardas el archivo, y en tu terminal ejecutas el siguiente comando:
 
 Lo que hará es compilar esto en la plantilla de cloud formation e implementarlo. Cuando haya terminado de actualizar, tu base de datos de Dynamo debería estar en tu cuenta. Vuelve a tu cuenta de AWS, actualiza la página y busca Dynamo. Ahora podrás ver que se ha creado una base de datos con el nombre que has elegido. Si entras allí verás que no hay ningún elemento dentro de la tabla, pero tendrás Id que es el único campo que tienes hasta ahora.
 
-#### Creando Apis con API Gateway y Lambda
+## Creando Apis con API Gateway y Lambda
 
 En nuestro proyecto necesitamos aws-sdk para usar funciones que nos permiten obtener datos que se almacenen o bien para agregar nueva información a la base de datos de Dynamo.
 
@@ -203,7 +203,7 @@ El proceso fue configurar una lambda que toma un request y que obtiene el Id a t
 
 Puedes usar esto para construír tus propias Apis con todos los datos que quieras. Eso te ayudará a hacer mejores aplicaciones front-end.
 
-#### Agregando o eliminando un jugador de tu tabla DynamoDb
+## Agregando o eliminando un jugador de tu tabla DynamoDb
 
 Puedes crear una Api no sólo para obtener datos sino también para agregar datos a tu base de datos, utilizando el método POST, que necesita una solicitud de entrada para ingresar datos a un endpoint de API.
 
@@ -217,7 +217,7 @@ Si ahora vas a tu base de datos de Dynamo en AWS y refrescas la página, verás 
 
 De esta manera puedes agregar o eliminar datos de tu DynamoDB desde el front-end.
 
-#### Reduciendo la cantidad de código con el plugin Serveless Webpack
+## Reduciendo la cantidad de código con el plugin Serveless Webpack
 
 En el archivo serverless, verás este código:
 
@@ -273,7 +273,7 @@ El código de lambda no es público, así que nadie más que tú podrá leerlo a
 
 Así llegamos al final de este tutorial. Si llegaste a este punto, habrás desplegado nuestro proyecto back-aws-game con AWS Dynamo, AWS Lambda y API Gateway, utilizando Serverless Framework 😊
 
-## Construido con 🛠️
+## Construído con 🛠️
 
 - [Serverless](https://www.serverless.com/) - En esta aplicación utilizamos Serverless Framework y lo configuramos con nuestra cuenta de AWS para poder desplegar el código desde nuestro equipo local. Serverless es un framework para crear, implementar y administrar recursos en AWS (también admite la configuración de otros proveedores de la nube). En un archivo .yml se especifica la configuración de recursos (por ejemplo la creación de roles de AWS para funciones específicas, base de datos DynamoDB, API Gateway, etc.) Serverless nos permite desplegar aplicaciones backend como funciones independientes que serán desplegadas hacia AWS Lambda.
 - [Amazon Web Services](https://aws.amazon.com/) - Es la plataforma en la nube más adoptada y completa en el mundo
