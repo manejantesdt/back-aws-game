@@ -12,8 +12,7 @@ Una vez que hayas iniciado sesión, necesitas configurar un usuario para que Ser
 
 Para hacer esto, en los servicios de AWS buscamos IAM (Identity and Access Management) para [crear un nuevo usuario IAM] (https://docs.aws.amazon.com/es_es/es_es/IAM/latest/UserGuide/id_roles_create.html).
 
-Introducimos un nombre de usuario, (por ejemplo ServerlessAccount), y seleccionamos la casilla donde dice "Acceso programático". Este acceso nos permite usar los SDK y otras herramientas CLI
-que permitirán que el servicio funcione con AWS.
+Introducimos un nombre de usuario, (por ejemplo ServerlessAccount), y seleccionamos la casilla donde dice "Acceso programático". Este acceso nos permite usar los SDK y otras herramientas CLI que permitirán que el servicio funcione con AWS.
 
 En la siguiente ventana, le vamos a asignar los permisos vamos a ir a la opción "asociar directamente las políticas existentes"; vamos a buscar y seleccionar únicamente
 "AdministratorAccess" (acceso de administrador). Esto se debe a que quieres que el servicio tenga acceso completo para hacer lo que sea que necesites ya sea creando backets, lambdas, S3 o cualquier otra cosa.
@@ -39,17 +38,17 @@ Cuando haya terminado la instalación podemos configurar las credenciales (neces
 
 _Nota: En --profile le damos un nombre a esta cuenta así que para esto vamos a usar "serverlessUser" (pero puede ser cualquier otro nombre)_
 
-Presiona enter, y esto va a configurar algunas cosas de AWS en serverless. Hasta ahora has creado un usuario en AWS y has usado esas credenciales para crear un rol de serverless en tu equipo.
+Presiona enter, y esto va a configurar algunas cosas de AWS en Serverless. Hasta ahora has creado un usuario en AWS y has usado esas credenciales para crear un rol de Serverless en tu equipo.
 
 #### Creando tu Proyecto
 
-Una vez que tengas Serverless instalado y configurado, podemos crear un proyecto usando un comando CLI de serverless. Vamos a usar una plantilla llamada AWS - node.js, y también tenemos que especificar la ruta en la que vamos a construir esta plantilla.
+Una vez que tengas Serverless instalado y configurado, podemos crear un proyecto usando un comando CLI de Serverless. Vamos a usar una plantilla llamada AWS - node.js, y también tenemos que especificar la ruta en la que vamos a construir esta plantilla.
 
 En la terminal escribimos el siguiente comando y hacemos "Enter":
 
 ### `serverless create --template aws-nodejs --path myServerlessProject`
 
-Este comando de serverless creó una plantilla dentro de la carpeta llamada "myServerlessProject" con todo el código de serverless que necesitamos.
+Este comando de serverless creó una plantilla dentro de la carpeta llamada "myServerlessProject" con todo el código de Serverless que necesitamos.
 
 Ejecuta en la consola:
 
@@ -63,12 +62,12 @@ Y verás un archivo "handler.js" y otro "serverless.yml"
 
 Abre el archivo serveless.yml en Visual Studio Code, y verás que tienes un sevicio llamado "myServerlessProject", y debajo un provider con algunos detalles, y más abajo unas funciones donde por el momento tiene una función llamada hello que configura el handler con handler.hello, que apunta al archivo handler.js
 
-handler.js es una archivo javascript donde se exporta una función "hello" que es un evento asíncrono.
+handler.js es una archivo Javascript donde se exporta una función "hello" que es un evento asíncrono.
 
 #### Desplegando tu Proyecto
 
 Vuelve a nuestro archivo serverless.yml y vamos a hacer un pequeño cambio. Cuando configuramos aws y
-las credenciales de serverless configuramos un perfil; eso significa que si queremos deployar el proyecto usando esas credenciales tenemos que agregar un perfil para el proveedor. Debajo de provider, agregamos estas líneas:
+las credenciales de Serverless configuramos un perfil; eso significa que si queremos deployar el proyecto usando esas credenciales tenemos que agregar un perfil para el proveedor. Debajo de provider, agregamos estas líneas:
 
 ```sh
 provider:
@@ -81,20 +80,20 @@ Guardamos este archivo y ahora en la terminal, dentro de esta carpeta ejecutamos
 
 ### `sls deploy`
 
-Sls es una abreviatura de serverless y luego queremos deployar todo lo que hay en esta carpeta.
-Al presionar creará un archivo de configuración serverless y va a crear una plantilla "cloud formation" que va a construir todos los recursos dentro de esta cuenta. Este proceso lleva un tiempo para completarse.
+Sls es una abreviatura de Serverless y luego queremos deployar todo lo que hay en esta carpeta.
+Al presionar creará un archivo de configuración Serverless y va a crear una plantilla "cloud formation" que va a construir todos los recursos dentro de esta cuenta. Este proceso lleva un tiempo para completarse.
 
-Cuando haya terminado podemos ver los datos de un servicio en una etapa de desarrollo desplegada para nosotros. Ahora vamos a nuestra cuenta de AWS. Volvemos a la página de inicio de la consola de AWS y buscamos lambda.
+Cuando haya terminado podemos ver los datos de un servicio en una etapa de desarrollo desplegada para nosotros. Ahora vamos a nuestra cuenta de AWS. Volvemos a la página de inicio de la consola de AWS y buscamos Lambda.
 
-Dentro del panel de lambda podemos ver que la última modificación se hizo unos minutos atrás.
+Dentro del panel de Lambda podemos ver que la última modificación se hizo unos minutos atrás.
 Construimos myseverlessproject-dev-hello. Si hacemos click y bajamos podemos ver que ahí está
 el código que teníamos en ese archivo. Eso significa que hemos implementado con éxito nuestro archivo serverless y que podemos cambiar el código dentro de este tipo de funciones para que sean deployadas en nuestra cuenta de AWS con éxito.
 
-Hasta aquí has creado un nuevo proyecto de serverless usando plantillas de serverless, has visto lo que conforma un proyecto de serverless, el archivo serverless.yml y toda la configuración que contiene. Luego lo deployaste y viste cuando estaba siendo creado en tu cuenta de AWS.
+Hasta aquí has creado un nuevo proyecto usando plantillas de Serverless, has visto lo que conforma un proyecto de Serverless, el archivo serverless.yml y toda la configuración que contiene. Luego lo deployaste y viste cuando estaba siendo creado en tu cuenta de AWS.
 
 #### Agregando una Base de Datos con DynamoDb
 
-Ahora que configuramos nuestra cuenta de AWS con serverless podemos agregar una base de datos de Dynamo a esa cuenta. Vamos a nuestro archivo serverless y lo que puedes hacer es agregar a tus recursos una base de datos que escalará automáticamente.
+Ahora que configuramos nuestra cuenta de AWS con Serverless podemos agregar una base de datos de Dynamo a esa cuenta. Vamos a nuestro archivo serverless y lo que puedes hacer es agregar a tus recursos una base de datos que escalará automáticamente.
 
 AWS maneja toda la infraestructura por nosotros, lo que significa que una vez que está configurada escalará de manera automática con la información que cargues en ella, y no tienes que lidiar con los servidores o manejar ninguna de las bases de datos.
 
@@ -124,7 +123,7 @@ Necesitamos otro nombre para tu base de datos porque Amazon usa base de datos en
 
 En la línea donde dice " TableName:", reeemplaza "CredituPlayers" por un nombre para tu nueva base de datos.
 
-En atributos se definen los atributos que estarám en cada una de las filas de la base de datos. Los atributos tienen un nombre y un tipo, en nuestro caso "AttributeName: Id" que es de tipo "N" (número).
+En atributos se definen los atributos que estarán en cada una de las filas de la base de datos. Los atributos tienen un nombre y un tipo, en nuestro caso "AttributeName: Id" que es de tipo "N" (número).
 
 También tenemos un KeySchema:
 
@@ -214,9 +213,9 @@ Puedes probar esa ruta utilizando una aplicación como Postman. En la consola de
 
 Necesitarás agregar un body. En Postman seleccionas "raw" y JSON. Es un objeto, así que usas llaves, agregas un campo "Nickname" y opcionalmente agregas un campo "Avatar" (puedes agregar la url de una imagen de tu preferencia). Al presionar "Send", obtendrás una respuesta de un nuevo jugador con los datos que le acabas de ingresar.
 
-Si ahora vas a tu base de datos de Dynamo en AWS y refrescas la página, verás que ahora un nuevo jugador ha sido agregado a tu tabla. Ahora también puedes probar tu ruta GET por Id para obtener los datos de ese jugador. Y ya puedes probar los demás endpoints, como editar y/o eliminar un jugador.
+Si ahora vas a tu base de datos de Dynamo en AWS y refrescas la página, verás que ahora un nuevo jugador ha sido agregado a tu tabla. Ahora también puedes probar tu ruta GET por Id para obtener los datos de ese jugador. Y ya puedes probar en la consola de Postman los demás endpoints, que te permiten editar y/o eliminar un jugador.
 
-Ahora puedes agregar o eliminar datos de tu DynamoDB desde el front-end.
+De esta manera puedes agregar o eliminar datos de tu DynamoDB desde el front-end.
 
 #### Reduciendo la cantidad de código con el plugin Serveless Webpack
 
