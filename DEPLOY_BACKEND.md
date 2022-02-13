@@ -229,12 +229,12 @@ iamRoleStatements:
       Resource: "*"
 ```
 
-Eso significa que nuestro usuario Iam está configurado y le da a dynamodb permisos para acceder a todas nuestras lambdas (indicado con el asterisco)
+Eso significa que nuestro usuario IAM está configurado y le da a dynamodb permisos para acceder a todas nuestras lambdas (indicado con el asterisco)
 
 Cuando deployas por defecto en Serverless, eso descargará todo el código en cada función lambda. Cuando tengas más lambdas, más código, eso estará plagado de archivos que no necesitas. Por eso utilizamos el plugin Serveless webpack para empaquetar todo nuestro código en secciones más pequeñas. Puedes verlo en el archivo serverless.yml :
 
 <p align='left'>
-    <img height="100" src='https://github.com/manejantesdt/back-aws-game/blob/dev/Screenshot_plugins.png' </img>
+    <img height="70" src='https://github.com/manejantesdt/back-aws-game/blob/dev/Screenshot_plugins.png' </img>
 </p> 
 
 Para que esto funcione también tenemos que indicarle que cada una de las funciones lambda sea empaquetada individualmente. En serverless.yml, debajo de los plugins, agregamos este código:
