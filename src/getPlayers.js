@@ -1,4 +1,5 @@
 const AWS = require("aws-sdk");
+const tableName = process.env.tableName;
 
 const getPlayers = async (event) => {
   try {
@@ -6,42 +7,53 @@ const getPlayers = async (event) => {
     const dynamodb = new AWS.DynamoDB.DocumentClient();
     const result = (
       await dynamodb
-      .scan({
-        TableName: "CredituPlayers",
-      })
-      .promise()
-      ).Items;
-      // ______________________________________________________________________________________
-      
-      // ----------------------------------<variables>-----------------------------------------
-      var playeResult = result;
-      var players = playeResult.sort((a, b) => b.score - a.score);
-      var count = 1;
-      players.forEach((g) => {
-        g.ranking = count++;
-      });
-      var getPlayers = players;
-      // ______________________________________________________________________________________
-      
-      // ----------------------------------<busqueda name y id>--------------------------------
-      if (event?.queryStringParameters) {
-        const { nick_name, order, status, amount } = event.queryStringParameters;
-        if (nick_name) {
-          if (/^\d+$/.test(nick_name)) {
+        .scan({
+          TableName: tableName,
+        })
+        .promise()
+    ).Items;
+    if (!result) {
+      throw Error(`There was an error fetching the data from ${tableName}`);
+    }
+    console.log(result);
+
+    // ______________________________________________________________________________________
+
+    // ----------------------------------<variables>-----------------------------------------
+    var playeResult = result;
+    var players = playeResult;
+    // var players = playeResult.sort((a, b) => b.score - a.score);
+    // var count = 1;
+    // players.forEach((g) => {
+    //   g.ranking = count++;
+    // });
+    var getPlayers = players;
+    // ______________________________________________________________________________________
+
+    // ----------------------------------<busqueda name y id>--------------------------------
+    if (event?.queryStringParameters) {
+      const { nick_name, order, status, amount } = event.queryStringParameters;
+      if (nick_name) {
+        if (/^\d+$/.test(nick_name)) {
           let playerId = (
             await dynamodb
               .get({
-                TableName: "CredituPlayers",
+                TableName: tableName,
                 Key: {
                   Id: parseInt(nick_name),
                 },
               })
               .promise()
           ).Item;
-          let playerSearch = [playerId];
-          let id = playerSearch[0].Id;
-          players = players.filter((p) => p.Id === id);
+          if (!playerId) {
+            throw Error(
+              `There was an error fetching the data from ${tableName}`
+            );
+          }
+          console.log(playerId);
+          players = playerId;
         }
+
         if (!/^\d+$/.test(nick_name)) {
           players = players.filter((player) =>
             player.nickname
@@ -50,9 +62,11 @@ const getPlayers = async (event) => {
           );
         }
       }
+
       if (nick_name === "") {
         players = [];
       }
+
       if (!nick_name) {
         players = players;
       }

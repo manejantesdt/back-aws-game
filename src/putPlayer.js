@@ -1,4 +1,5 @@
 const AWS = require("aws-sdk");
+const tableName = process.env.tableName;
 
 const putPlayer = async (event) => {
   try {
@@ -23,7 +24,7 @@ const putPlayer = async (event) => {
 
       let update = await dynamodb
         .update({
-          TableName: "CredituPlayers",
+          TableName: tableName,
           Key: { Id },
           UpdateExpression:
             "set score = :score, #status=:status ,nickname = :nickname, avatar = :avatar",
@@ -39,49 +40,62 @@ const putPlayer = async (event) => {
           ReturnValues: "ALL_NEW",
         })
         .promise();
+        if (!update ) {
+          throw Error(
+            `There was an error fetching the data from ${tableName}`
+          );
+        }
+        console.log(update);
 
       if (update) {
-        const search = 
-          (
-            await dynamodb
-              .scan({
-                TableName: "CredituPlayers",
-              })
-              .promise()
-          ).Items
-         
+        const search = (
+          await dynamodb
+            .scan({
+              TableName: tableName,
+            })
+            .promise()
+        ).Items;
+
+        if (!search ) {
+          throw Error(
+            `There was an error fetching the data from ${tableName}`
+          );
+        }
+        console.log(search);
+
         var players = search.sort((a, b) => b.score - a.score);
         var count = 1;
         players.forEach((g) => {
           g.ranking = count++;
         });
+
         if (players) {
-            players.forEach(async (player) => {
-              await dynamodb
-                .update({
-                  TableName: "CredituPlayers",
-                  Key: { Id: player.Id },
-                  UpdateExpression:
-                    "set score = :score, #status=:status ,nickname = :nickname, avatar = :avatar, ranking = :ranking",
-                  ExpressionAttributeValues: {
-                    ":score": player.score,
-                    ":status": player.status,
-                    ":nickname": player.nickname,
-                    ":avatar": player.avatar,
-                    ":ranking": player.ranking,
-                  },
-                  ExpressionAttributeNames: {
-                    "#status": "status",
-                  },
-                  ReturnValues: "ALL_NEW",
-                })
-                .promise();
-            });
+          players.forEach(async (player) => {
+            (await dynamodb
+              .update({
+                TableName: tableName,
+                Key: { Id: player.Id },
+                UpdateExpression:
+                  "set score = :score, #status=:status ,nickname = :nickname, avatar = :avatar, ranking = :ranking",
+                ExpressionAttributeValues: {
+                  ":score": player.score,
+                  ":status": player.status,
+                  ":nickname": player.nickname,
+                  ":avatar": player.avatar,
+                  ":ranking": player.ranking,
+                },
+                ExpressionAttributeNames: {
+                  "#status": "status",
+                },
+                ReturnValues: "ALL_NEW",
+              })
+              .promise()).Item;
+          });
         }
         return {
           statusCode: 200,
           body: JSON.stringify({
-            message: "all players updated",
+            message: "Successful PutPlayer.",
           }),
         };
       }
@@ -90,14 +104,14 @@ const putPlayer = async (event) => {
     return {
       statusCode: 500,
       body: JSON.stringify({
-        message: "task not updated",
+        message: "player not updated",
       }),
     };
   } catch (e) {
     console.error(e);
     response.statusCode = 500;
     response.body = JSON.stringify({
-      message: "Failed to delete post.",
+      message: "Failed to update player.",
       errorMsg: e.message,
       errorStack: e.stack,
     });

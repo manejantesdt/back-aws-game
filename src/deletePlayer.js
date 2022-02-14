@@ -1,16 +1,22 @@
 const AWS = require("aws-sdk");
+const tableName = process.env.tableName;
 
 const deletePlayer = async (event) => {
   try {
     const dynamodb = new AWS.DynamoDB.DocumentClient();
     var { Id } = event.pathParameters;
     Id = parseInt(Id);
-    await dynamodb
+   var result = await dynamodb
       .delete({
-        TableName: "CredituPlayers",
+        TableName: tableName,
         Key: { Id: Id },
       })
       .promise();
+    if (!result ) {
+      throw Error(`There was an error fetching the data from ${tableName}`);
+    }
+    console.log(result);
+
     return {
       status: 200,
       body: {
@@ -29,4 +35,3 @@ const deletePlayer = async (event) => {
 };
 
 module.exports = { deletePlayer };
-

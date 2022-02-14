@@ -5,12 +5,16 @@ provider:
   name: aws
   runtime: nodejs14.x
   region: us-east-1
+  environment:
+    tableName: ${self:custom.tableName}
   iamRoleStatements:
     - Effect: Allow
       Action:
         - dynamodb:*
-      Resource: arn:aws:dynamodb:us-east-1:372800600226:table/CredituPlayers
-      # Resource: "*"
+      Resource: "*"
+
+custom:
+  tableName: CredituPlayers
 
 functions:
   createPlayer:
@@ -49,7 +53,7 @@ resources:
     usersTable:
       Type: AWS::DynamoDB::Table
       Properties:
-        TableName: CredituPlayers
+        TableName: ${self:custom.tableName}
         AttributeDefinitions:
           - AttributeName: Id
             AttributeType: N
