@@ -4,15 +4,14 @@ const tableName = process.env.tableName;
 const deletePlayer = async (event) => {
   try {
     const dynamodb = new AWS.DynamoDB.DocumentClient();
-    var { Id } = event.pathParameters;
-    Id = parseInt(Id);
-   var result = await dynamodb
+    var { Id } = JSON.parse(event.body);
+    var result = await dynamodb
       .delete({
         TableName: tableName,
-        Key: { Id: Id },
+        Key: { Id: parseInt(Id) },
       })
       .promise();
-    if (!result ) {
+    if (!result) {
       throw Error(`There was an error fetching the data from ${tableName}`);
     }
     console.log(result);

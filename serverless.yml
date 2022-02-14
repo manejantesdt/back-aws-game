@@ -45,7 +45,7 @@ functions:
     handler: src/deletePlayer.deletePlayer
     events:
       - httpApi:
-          path: /player/{Id}
+          path: /player
           method: delete
 
 resources:
