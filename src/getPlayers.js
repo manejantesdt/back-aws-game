@@ -22,11 +22,11 @@ const getPlayers = async (event) => {
     // ----------------------------------<variables>-----------------------------------------
     var playeResult = result;
     var players = playeResult;
-    // var players = playeResult.sort((a, b) => b.score - a.score);
-    // var count = 1;
-    // players.forEach((g) => {
-    //   g.ranking = count++;
-    // });
+    var players = playeResult.sort((a, b) => b.score - a.score);
+    var count = 1;
+    players.forEach((g) => {
+      g.ranking = count++;
+    });
     var getPlayers = players;
     // ______________________________________________________________________________________
 

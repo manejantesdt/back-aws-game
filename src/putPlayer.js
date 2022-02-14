@@ -18,8 +18,10 @@ const putPlayer = async (event) => {
         status = "plata";
       } else if (50512 <= newScore && newScore < 56510) {
         status = "bronce";
-      } else if (newScore < 56510) {
+      } else if (0 <= newScore < 50512) {
         status = "hierro";
+      } else if (0 > newScore) {
+        throw Error("Score must be greater than 0");
       }
 
       let update = await dynamodb
@@ -40,65 +42,63 @@ const putPlayer = async (event) => {
           ReturnValues: "ALL_NEW",
         })
         .promise();
-        if (!update ) {
-          throw Error(
-            `There was an error fetching the data from ${tableName}`
-          );
-        }
-        console.log(update);
+      if (!update) {
+        throw Error(`There was an error fetching the data from ${tableName}`);
+      }
+      console.log(update);
 
-      if (update) {
-        const search = (
-          await dynamodb
-            .scan({
-              TableName: tableName,
-            })
-            .promise()
-        ).Items;
+      // if (update) {
+      //   const search = (
+      //     await dynamodb
+      //       .scan({
+      //         TableName: tableName,
+      //       })
+      //       .promise()
+      //   ).Items;
 
-        if (!search ) {
-          throw Error(
-            `There was an error fetching the data from ${tableName}`
-          );
-        }
-        console.log(search);
+      //   if (!search) {
+      //     throw Error(`There was an error fetching the data from ${tableName}`);
+      //   }
+      //   console.log(search);
 
-        var players = search.sort((a, b) => b.score - a.score);
-        var count = 1;
-        players.forEach((g) => {
-          g.ranking = count++;
-        });
+      //   var players = search.sort((a, b) => b.score - a.score);
+      //   var count = 1;
+      //   players.forEach((g) => {
+      //     g.ranking = count++;
+      //   });
 
-        if (players) {
-          players.forEach(async (player) => {
-            (await dynamodb
-              .update({
-                TableName: tableName,
-                Key: { Id: player.Id },
-                UpdateExpression:
-                  "set score = :score, #status=:status ,nickname = :nickname, avatar = :avatar, ranking = :ranking",
-                ExpressionAttributeValues: {
-                  ":score": player.score,
-                  ":status": player.status,
-                  ":nickname": player.nickname,
-                  ":avatar": player.avatar,
-                  ":ranking": player.ranking,
-                },
-                ExpressionAttributeNames: {
-                  "#status": "status",
-                },
-                ReturnValues: "ALL_NEW",
-              })
-              .promise()).Item;
-          });
-        }
+      //   if (players) {
+      //     players.forEach(async (player) => {
+      //       (
+      //         await dynamodb
+      //           .update({
+      //             TableName: tableName,
+      //             Key: { Id: player.Id },
+      //             UpdateExpression:
+      //               "set score = :score, #status=:status ,nickname = :nickname, avatar = :avatar, ranking = :ranking",
+      //             ExpressionAttributeValues: {
+      //               ":score": player.score,
+      //               ":status": player.status,
+      //               ":nickname": player.nickname,
+      //               ":avatar": player.avatar,
+      //               ":ranking": player.ranking,
+      //             },
+      //             ExpressionAttributeNames: {
+      //               "#status": "status",
+      //             },
+      //             ReturnValues: "ALL_NEW",
+      //           })
+      //           .promise()
+      //       ).Item;
+      //     });
+      //   }
         return {
           statusCode: 200,
           body: JSON.stringify({
             message: "Successful PutPlayer.",
           }),
         };
-      }
+      // }
     }
 
     return {
