@@ -11,7 +11,7 @@ const putPlayer = async (event) => {
       Id = parseInt(Id);
       var status = "";
 
-      if ((86510 <= newScore && newScore <= 116510) || newScore >= 116510) {
+      if (86510 <= newScore) {
         status = "oro";
       } else if (56510 <= newScore && newScore < 86510) {
         status = "plata";
@@ -56,9 +56,7 @@ const putPlayer = async (event) => {
           g.ranking = count++;
         });
         if (players) {
-          // const delay = (ms) => new Promise((res) => setTimeout(res, ms));
             players.forEach(async (player) => {
-              // await delay(1000);
               await dynamodb
                 .update({
                   TableName: "CredituPlayers",
