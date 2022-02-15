@@ -237,23 +237,21 @@ Vamos a revisar todas las configuraciones que tuvieron lugar, paso por paso:
 1) Cuando haya terminado podemos ver los datos de un servicio en una etapa de desarrollo desplegada para nosotros. Ahora vamos a nuestra cuenta de AWS. Volvemos a la página de inicio de la consola de AWS y buscamos lambda. Dentro del panel de lambda podemos ver que la última modificación se hizo unos minutos atrás.
 Construimos por ejemplo aws-la-dev-getPlayers. Si hacemos click y bajamos podemos ver que ahí está el código que teníamos en ese archivo. Eso significa que hemos implementado con éxito nuestro archivo serverless y que podemos cambiar el código dentro de este tipo de funciones para que sean deployadas en nuestra cuenta de AWS con éxito.
 
-Has creado un nuevo proyecto de serverless usando plantillas de serverless, has visto lo que conforma un proyecto de serverless, el archivo serverless.yml y toda la configuración que contiene. Luego lo deployaste y viste cuando estaba siendo creado en tu cuenta de AWS.
-
 2) Otra cosa que hará el comando `sls deploy` es compilar esto en la plantilla de cloud formation e implementarlo. Cuando haya terminado de actualizar, tu base de datos de Dynamo debería estar en tu cuenta. Vuelve a tu cuenta de AWS, actualiza la página y busca Dynamo. Ahora podrás ver que se ha creado una base de datos con el nombre que has elegido. Si entras allí verás que no hay ningún elemento dentro de la tabla, pero tendrás Id que es el único campo que tienes hasta ahora.
 
-3) Se habrán construído tus funciones lambda y se configurará con los eventos y API Gateway. Verás que tendrás las funciones pero también tendrás los endpoints, que son creados con una serie de números random - y luego dice .execute.api, luego la región por ejemplo us-east-1, y al final tiene las rutas, por ejemplo "/player/{Id}". Si haces click derecho sobre uno de esos endpoints y lo copias, lo puedes pegar y probar en tu navegador.
+3) Se habrán construído tus funciones lambda y se configurará con los eventos y API Gateway. En tu terminal, verás que tendrás las funciones pero también tendrás los endpoints, que son creados con una serie de números random - y luego dice .execute.api, luego la región por ejemplo us-east-1, y al final tiene las rutas, por ejemplo "/player/{Id}". Si haces click derecho sobre uno de esos endpoints y lo copias, lo puedes pegar y probar en tu navegador.
 
-De esta manera, hemos construído unas Apis, por ejemplo getPlayerId, utilizando API Gateway y Lambda, así podemos obtener datos de nuestra base de datos. Lo desplegamos usando serverless. Eso significa que ahora podemos usar nuestro front-end y obtener la información que necesitamos mediante nuestros endpoints.
+4) Al construírse con webpack, se comprimieron los archivos y serán más pequeños que si no usaras el plugin. Si vas a tu cuenta de AWS, en lambda, entras a alguna de las funciones y bajas para ver el código, verás que en la parte superior hay información relativa a webpack, y más abajo, en la sección principal de código, verás el mismo código que tienes en tu archivo local en esa función, fácil de leer. El código de lambda no es público, así que nadie más que tu podrá leerlo a menos que tenga acceso a tu cuenta. Con webpack nos aseguramos de que sólo el código que necesitamos en lambda, se sube a lambda, y mejora nuestro despliegue.
 
-4) Al construírse con webpack; eso comprimirá los archivos y serán más pequeños que si no usaras el plugin. Si vas a tu cuenta de AWS, en lambda, entras a alguna de las funciones y bajas para ver el código, verás que en la parte superior hay información relativa a webpack, y más abajo, en la sección principal de código, verás el mismo código que tienes en tu archivo local en esa función, fácil de leer.
-
-El código de lambda no es público, así que nadie más que tu podrá leerlo a menos que tenga acceso a tu cuenta. Con webpack nos aseguramos de que sólo el código que necesitamos en lambda, se sube a lambda, y mejora nuestro despliegue.
-
-#### Comprendiendo el proceso...
+#### Repasando y comprendiendo el proceso...
 
 El proceso fue configurar funciones lambda que toman un request, por ejemplo getPlayerId, que obtiene el Id a través de los parámetros requeridos por un cliente en un endpoint. Esto es pasado a nuestra base de datos de Dynamo utilizando un método GET, que es un método personalizado escrito por nosotros -que toma un Id y el nombre de una base de datos (TableName), y lo transforma en el formato correcto para hacer un request a DynamoDB.DocumentClient. Este es un servicio de AWS SDK que nos permite interactuar con nuestras tablas en nuestra base de datos Dynamo. El request GET retorna los datos y con nuestra API entregamos esa información al cliente.
 
 Puedes usar esto para construír tus propias Apis con todos los datos que quieras. Eso te ayudará a hacer mejores aplicaciones front-end.
+
+Has creado un nuevo proyecto de serverless usando plantillas de serverless, has visto lo que conforma un proyecto de serverless, el archivo serverless.yml y toda la configuración que contiene. Luego lo deployaste y viste cuando estaba siendo creado en tu cuenta de AWS.
+
+Has construído unas Apis, por ejemplo getPlayerId, utilizando API Gateway y Lambda, así puedes obtener datos de tu base de datos. Lo desplegaste usando serverless. Eso significa que ahora podemos usar nuestro front-end y obtener la información que necesitamos mediante nuestros endpoints.
 
 #### Agregando o eliminando un jugador de tu tabla DynamoDb
 
