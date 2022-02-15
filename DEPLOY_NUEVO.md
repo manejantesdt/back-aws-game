@@ -263,9 +263,9 @@ Puedes probar esa ruta utilizando una aplicación como Postman. En la consola de
 
 Necesitarás agregar un body. En Postman seleccionas "raw" y JSON. Es un objeto, así que usas llaves, agregas un campo "Nickname" y opcionalmente agregas un campo "Avatar" (puedes agregar la url de una imagen de tu preferencia). Al presionar "Send", obtendrás una respuesta de un nuevo jugador con los datos que le acabas de ingresar.
 
-Si ahora vas a tu base de datos de Dynamo en AWS y refrescas la página, verás que ahora un nuevo jugador ha sido agregado a tu tabla. Ahora también puedes probar tu ruta GET por Id para obtener los datos de ese jugador. Y ya puedes probar los demás endpoints, como editar y/o eliminar un jugador.
+Si ahora vas a tu base de datos de Dynamo en AWS y refrescas la página, verás que un nuevo jugador ha sido agregado a tu tabla. Ahora también puedes probar tu ruta GET por Id para obtener los datos de ese jugador. Y además puedes probar los otros endpoints, editar y/o eliminar un jugador.
 
-Ahora puedes agregar o eliminar datos de tu DynamoDB desde el front-end.
+Estás list@ para agregar o eliminar datos de tu DynamoDB desde el front-end.
 
 Así llegamos al final de este tutorial. Si llegaste a este punto, habrás desplegado nuestro proyecto back-aws-game con AWS Dynamo, AWS Lambda y API Gateway, utilizando Serverless Framework 😊
 
