@@ -235,7 +235,7 @@ Sls es una abreviatura de serverless y queremos deployar todo lo que hay en esta
 Vamos a revisar todas las configuraciones que tuvieron lugar, paso por paso:
 
 1) Cuando haya terminado podemos ver los datos de un servicio en una etapa de desarrollo desplegada para nosotros. Ahora vamos a nuestra cuenta de AWS. Volvemos a la página de inicio de la consola de AWS y buscamos lambda. Dentro del panel de lambda podemos ver que la última modificación se hizo unos minutos atrás.
-Construimos por ejemplo back-aws-game-dev-getPlayers. Si hacemos click y bajamos podemos ver que ahí está el código que teníamos en ese archivo. Eso significa que hemos implementado con éxito nuestro archivo serverless y que podemos cambiar el código dentro de este tipo de funciones para que sean deployadas en nuestra cuenta de AWS con éxito.
+Construimos por ejemplo aws-la-dev-getPlayers. Si hacemos click y bajamos podemos ver que ahí está el código que teníamos en ese archivo. Eso significa que hemos implementado con éxito nuestro archivo serverless y que podemos cambiar el código dentro de este tipo de funciones para que sean deployadas en nuestra cuenta de AWS con éxito.
 
 Has creado un nuevo proyecto de serverless usando plantillas de serverless, has visto lo que conforma un proyecto de serverless, el archivo serverless.yml y toda la configuración que contiene. Luego lo deployaste y viste cuando estaba siendo creado en tu cuenta de AWS.
 
