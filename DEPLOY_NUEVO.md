@@ -63,8 +63,8 @@ getPlayers.js es una archivo javascript donde se exporta una función "getPlayer
 
 #### Desplegando tu Proyecto
 
-Vuelve a nuestro archivo serverless.yml y vamos a hacer un pequeño cambio. Cuando configuramos aws y
-las credenciales de serverless configuramos un perfil; eso significa que si queremos deployar el proyecto usando esas credenciales tenemos que agregar un perfil para el proveedor. En la sección provider, en profile, agrega el nombre de tu perfil:
+Vuelve a nuestro archivo serverless.yml y vamos a hacer algunos pequeños cambios. Cuando configuramos aws y
+las credenciales de serverless configuramos un perfil; eso significa que si quieres deployar el proyecto usando esas credenciales tienes que agregar un perfil para el proveedor. En la sección provider, en profile, agrega el nombre de tu perfil:
 
 ```sh
 provider:
@@ -72,14 +72,13 @@ provider:
   runtime: nodejs14.x
   profile: EL-NOMBRE-DE-TU-PERFIL
 ```
-
 #### Agregando una Base de Datos con DynamoDb
 
-Ahora que configuramos nuestra cuenta de AWS con serverless podemos agregar una base de datos de Dynamo a esa cuenta. Vamos a nuestro archivo serverless y lo que puedes hacer es agregar a tus recursos una base de datos que escalará automáticamente.
+Ahora que configuraste tu cuenta de AWS con serverless puedes agregar una base de datos de Dynamo a esa cuenta. Vas a nuestro archivo serverless y lo que puedes hacer es agregar a tus recursos una base de datos que escalará automáticamente.
 
 AWS maneja toda la infraestructura por nosotros, lo que significa que una vez que está configurada escalará de manera automática con la información que cargues en ella, y no tienes que lidiar con los servidores o manejar ninguna de las bases de datos.
 
-En el archivo serverless.yml, debajo de "functions" (funciones), verás este código:
+En el archivo serverless.yml, debajo de "functions" (funciones), verás este código con todos los recursos de AWS que estarás generando, en este caso, una base de datos:
 
 ```sh
 resources:
@@ -101,18 +100,23 @@ resources:
 
 Necesitas definir el nombre del recurso, en este caso nosotros usamos "usersTable" pero puedes poner un nombre cualquiera como "MyDynamoDbTable". Además tiene un tipo y unas propiedades.
 
-Necesitamos otro nombre para tu base de datos porque Amazon usa base de datos en todo el mundo y esto tiene que ser un nombre de una base de datos completamente único para ti. Y eso significa que tiene que ser algo muy singular y no así nombres comunes.
+Necesitamos otro nombre para tu base de datos porque Amazon usa bases de datos en todo el mundo y esto tiene que ser un nombre de una base de datos completamente único para ti. Y eso significa que tiene que ser algo muy singular y no así nombres comunes.
 
-En la línea donde dice " TableName:", utilizamos una variable de entorno: "${self:custom.tableName}".
+En la línea donde dice " TableName:", nosotros utilizamos una variable de entorno: "${self:custom.tableName}". Esto está indicando que en este mismo archivo ("self", busque la variable custom y dentro de custom, el valor asignado a tableName. Para que esto funcione, más arriba en propiedades tuvimos que establecer un entorno, así:
 
-Busca en el archivo 
+```sh
+environment:
+    tableName: ${self:custom.tableName}
+```
+#### Ahora busca un poco más arriba en el archivo el siguiente código:
+
 ```sh
 custom:
   tableName: CredituPlayers 
 ```
-Reeemplaza "CredituPlayers" por un nombre para tu nueva base de datos.
+Y reeemplaza "CredituPlayers" por el nombre que le asignarás a tu nueva base de datos. De esta forma cuando hagas el despliegue, en AWS se creará una base de datos de Dynamo con ese nombre. 
 
-En atributos se definen los atributos que estarám en cada una de las filas de la base de datos. Los atributos tienen un nombre y un tipo, en nuestro caso "AttributeName: Id" que es de tipo "N" (número).
+En atributos se definen los atributos que estarán en cada una de las filas de la base de datos. Los atributos tienen un nombre y un tipo, en nuestro caso "AttributeName: Id" que es de tipo "N" (número).
 
 También tenemos un KeySchema:
 
@@ -122,25 +126,19 @@ KeySchema:
             KeyType: HASH
 ```
 
-Guardas el archivo, y en tu terminal ejecutas el siguiente comando:
-
-### `sls deploy`
-
-Lo que hará es compilar esto en la plantilla de cloud formation e implementarlo. Cuando haya terminado de actualizar, tu base de datos de Dynamo debería estar en tu cuenta. Vuelve a tu cuenta de AWS, actualiza la página y busca Dynamo. Ahora podrás ver que se ha creado una base de datos con el nombre que has elegido. Si entras allí verás que no hay ningún elemento dentro de la tabla, pero tendrás Id que es el único campo que tienes hasta ahora.
-
 #### Creando Apis con API Gateway y Lambda
 
 En nuestro proyecto necesitamos aws-sdk para usar funciones que nos permiten obtener datos que se almacenen o bien para agregar nueva información a la base de datos de Dynamo.
 
-En los archivos descargados de nuestro repositorio, en la carpeta back-aws-game, abre la carpeta llamada "src". Es la carpeta que contiene las funciones lambda. Verás que contiene 5 archivos de javascrip, que implementan las acciones de agregar, borrar, obtener y editar jugadores de la tabla de Dynamo.
+Abre la carpeta llamada "src". Es la carpeta que contiene las funciones lambda. Verás que contiene 5 archivos de javascrip, que implementan las acciones de crear, obtener, editar y eliminar jugadores de la tabla de Dynamo. Básicamente, esto es lo que se conoce con el nombre de CRUD (Create, Read, Update, Delete) - que son las cuatro operaciones fundamentales de aplicaciones persistentes en sistemas de bases de datos.
 
 <p align='left'>
     <img height="150" src='https://github.com/manejantesdt/back-aws-game/blob/dev/Screenshot_src.png' </img>
 </p>
 
-Tendrás que abrir cada uno de esos archivos, identificar cada una de las líneas de código donde diga "TableName:", y reemplazar "CredituPlayers" por el nombre de tu tabla, la que acabas de crear en el paso anterior. Al guardar todos los cambios, tendrás listas tus funciones de lambda.
+Si abres y miras cada uno de esos archivos, verás que en las líneas de código donde dice "TableName:", en lugar de usar el nombre de la base de datos tendrás la variable tableName que definimos en el paso anterior como una variable de entorno en serverless.yml; esto hace el código más limpio y fácilmente configurable para cualquier persona que desee desplegarlo en su equipo. De esta manera, sin que tengas que cambiar nada, tienes listas tus funciones de lambda.
 
-Si echas un vistazo en el archivo serverless.yml, verás que contiene cada una de esas funciones:
+Si ahora echas un vistazo en el archivo serverless.yml, verás que contiene cada una de esas funciones:
 
 ```sh
 functions:
@@ -178,34 +176,6 @@ functions:
 
 Tienes el nombre de la función, luego handler que contiene la ruta donde están las funciones lambda, y luego events. Los eventos son los que disparan las funciones lambda y son necesarios si queremos configurar la Api. El path es la ruta al final de la URL que disparará exactamente esa Api. También está el método que tenemos que decir si es post, get, put o delete.
 
-En tu terminal ejecutas el siguiente comando:
-
-### `sls deploy`
-
-Y esto construirá tus funciones lambda y configurará con los eventos y API Gateway. Cuando termine de actualizar, verás que tendrás las funciones pero también tendrás los endpoints, que son creados con una serie de números random - y luego dice .execute.api, luego la región por ejemplo us-east-1, y al final tiene las rutas, por ejemplo "/player/{Id}". Si haces click derecho sobre uno de esos endpoints y lo copias, lo puedes pegar y probar en tu navegador.
-
-De esta manera, hemos construído unas Apis, por ejemplo getPlayerId, utilizando API Gateway y Lambda, así podemos obtener datos de nuestra base de datos. Lo desplegamos usando serverless. Eso significa que ahora podemos usar nuestro front-end y obtener la información que necesitamos mediante nuestros endpoints.
-
-#### Comprendiendo el proceso...
-
-El proceso fue configurar una lambda que toma un request y que obtiene el Id a través de los parámetros requeridos por un cliente en un endpoint. Esto es pasado a nuestra base de datos de Dynamo utilizando un método GET, que es un método personalizado escrito por nosotros -que toma un Id y el nombre de una base de datos (TableName), y lo transforma en el formato correcto para hacer un request a DynamoDB.DocumentClient. Este es un servicio de AWS SDK que nos permite interactuar con nuestras tablas en nuestra base de datos Dynamo. El request GET retorna los datos y con nuestra API entregamos esa información al cliente.
-
-Puedes usar esto para construír tus propias Apis con todos los datos que quieras. Eso te ayudará a hacer mejores aplicaciones front-end.
-
-#### Agregando o eliminando un jugador de tu tabla DynamoDb
-
-Puedes crear una Api no sólo para obtener datos sino también para agregar datos a tu base de datos, utilizando el método POST, que necesita una solicitud de entrada para ingresar datos a un endpoint de API.
-
-En nuestro repositorio, en la carpeta src donde se encuentran las funciones lambda, hemos creado un método POST. Al actualizar el proyecto usando el comando "sls deploy" en tu consola, tendrás un endpoint, con una serie de números random - .execute.api, tu región de la cuenta de AWS, por ejemplo us-east-1, y al final una ruta, por ejemplo "/create-player/{Id}". Haz click derecho sobre ese endpoint y cópialo.
-
-Puedes probar esa ruta utilizando una aplicación como Postman. En la consola de Postman estableces un POST request y pegas tu url. Necesitas agregar un Id al final de la ruta, diferente a cualquier Id que pueda existir en tu tabla de Dynamo.
-
-Necesitarás agregar un body. En Postman seleccionas "raw" y JSON. Es un objeto, así que usas llaves, agregas un campo "Nickname" y opcionalmente agregas un campo "Avatar" (puedes agregar la url de una imagen de tu preferencia). Al presionar "Send", obtendrás una respuesta de un nuevo jugador con los datos que le acabas de ingresar.
-
-Si ahora vas a tu base de datos de Dynamo en AWS y refrescas la página, verás que ahora un nuevo jugador ha sido agregado a tu tabla. Ahora también puedes probar tu ruta GET por Id para obtener los datos de ese jugador. Y ya puedes probar los demás endpoints, como editar y/o eliminar un jugador.
-
-Ahora puedes agregar o eliminar datos de tu DynamoDB desde el front-end.
-
 #### Reduciendo la cantidad de código con el plugin Serveless Webpack
 
 En el archivo serverless, verás este código:
@@ -226,16 +196,14 @@ Cuando deployas por defecto en Serverless, eso descargará todo el código en ca
     <img height="70" src='https://github.com/manejantesdt/back-aws-game/blob/dev/Screenshot_plugins.png' </img>
 </p>
 
-Para que esto funcione también tenemos que indicarle que cada una de las funciones lambda sea empaquetada individualmente. En serverless.yml, debajo de los plugins, agregamos este código:
+Para que esto funcione también tenemos que indicarle que cada una de las funciones lambda sea empaquetada individualmente. En serverless.yml, debajo de los plugins, verás que agregamos este código:
 
 ```sh
 package:
     individually: true
 ```
 
-Guardamos los cambios.
-
-Para instalar el plugin, ejecutamos:
+Si deseas instalar este plugin, ejecuta:
 
 ### `npm install --save serveless-webpack`
 
@@ -252,31 +220,54 @@ module.exports = {
 };
 ```
 
-Eso significa que está minimizado tanto como sea posible. Si ahora ejecutas:
+Eso significa que está minimizado tanto como sea posible. 
+
+Antes de seguir, asegúrate de haber guardado los cambios que realizaste en serverless.yml
+
+#### Desplegando el proyecto
+
+Todo está listo para deployar el proyecto. En tu terminal, dentro de esta carpeta raíz del proyecto ejecuta el siguiente comando:
 
 ### `sls deploy`
 
-Se construirá con webpack; eso comprimirá los archivos y serán más pequeños que antes. Si vas a tu cuenta de AWS, en lambda, entras a alguna de las funciones y bajas para ver el código, verás que en la parte superior hay información relativa a webpack, y más abajo, en la sección principal de código, verás el mismo código que tienes en tu archivo local en esa función, fácil de leer.
+Sls es una abreviatura de serverless y queremos deployar todo lo que hay en esta carpeta. Hay varias cosas que sucederán al ejecutar este comando por lo cual puede que tome varios minutos, dependiendo de tu equipo y de la velocidad de internet. 
+
+Vamos a revisar todo paso por paso:
+
+1) Cuando haya terminado podemos ver los datos de un servicio en una etapa de desarrollo desplegada para nosotros. Ahora vamos a nuestra cuenta de AWS. Volvemos a la página de inicio de la consola de AWS y buscamos lambda. Dentro del panel de lambda podemos ver que la última modificación se hizo unos minutos atrás.
+Construimos por ejemplo back-aws-game-dev-getPlayers. Si hacemos click y bajamos podemos ver que ahí está el código que teníamos en ese archivo. Eso significa que hemos implementado con éxito nuestro archivo serverless y que podemos cambiar el código dentro de este tipo de funciones para que sean deployadas en nuestra cuenta de AWS con éxito.
+
+Has creado un nuevo proyecto de serverless usando plantillas de serverless, has visto lo que conforma un proyecto de serverless, el archivo serverless.yml y toda la configuración que contiene. Luego lo deployaste y viste cuando estaba siendo creado en tu cuenta de AWS.
+
+2) Otra cosa que hará el comando `sls deploy` es compilar esto en la plantilla de cloud formation e implementarlo. Cuando haya terminado de actualizar, tu base de datos de Dynamo debería estar en tu cuenta. Vuelve a tu cuenta de AWS, actualiza la página y busca Dynamo. Ahora podrás ver que se ha creado una base de datos con el nombre que has elegido. Si entras allí verás que no hay ningún elemento dentro de la tabla, pero tendrás Id que es el único campo que tienes hasta ahora.
+
+3) Se habrán construído tus funciones lambda y se configurará con los eventos y API Gateway. Verás que tendrás las funciones pero también tendrás los endpoints, que son creados con una serie de números random - y luego dice .execute.api, luego la región por ejemplo us-east-1, y al final tiene las rutas, por ejemplo "/player/{Id}". Si haces click derecho sobre uno de esos endpoints y lo copias, lo puedes pegar y probar en tu navegador.
+
+De esta manera, hemos construído unas Apis, por ejemplo getPlayerId, utilizando API Gateway y Lambda, así podemos obtener datos de nuestra base de datos. Lo desplegamos usando serverless. Eso significa que ahora podemos usar nuestro front-end y obtener la información que necesitamos mediante nuestros endpoints.
+
+4) Al construírse con webpack; eso comprimirá los archivos y serán más pequeños que si no usaras el plugin. Si vas a tu cuenta de AWS, en lambda, entras a alguna de las funciones y bajas para ver el código, verás que en la parte superior hay información relativa a webpack, y más abajo, en la sección principal de código, verás el mismo código que tienes en tu archivo local en esa función, fácil de leer.
 
 El código de lambda no es público, así que nadie más que tu podrá leerlo a menos que tenga acceso a tu cuenta. Con webpack nos aseguramos de que sólo el código que necesitamos en lambda, se sube a lambda, y mejora nuestro despliegue.
 
-___________________________
+#### Comprendiendo el proceso...
 
-Guardamos este archivo y ahora en la terminal, dentro de esta carpeta ejecutamos:
+El proceso fue configurar funciones lambda que toman un request, por ejemplo getPlayerId, que obtiene el Id a través de los parámetros requeridos por un cliente en un endpoint. Esto es pasado a nuestra base de datos de Dynamo utilizando un método GET, que es un método personalizado escrito por nosotros -que toma un Id y el nombre de una base de datos (TableName), y lo transforma en el formato correcto para hacer un request a DynamoDB.DocumentClient. Este es un servicio de AWS SDK que nos permite interactuar con nuestras tablas en nuestra base de datos Dynamo. El request GET retorna los datos y con nuestra API entregamos esa información al cliente.
 
-### `sls deploy`
+Puedes usar esto para construír tus propias Apis con todos los datos que quieras. Eso te ayudará a hacer mejores aplicaciones front-end.
 
-Sls es una abreviatura de serverless y luego queremos deployar todo lo que hay en esta carpeta.
-Al presionar creará un archivo de configuración serverless y va a crear una plantilla "cloud formation" que va a construir todos los recursos dentro de esta cuenta. Este proceso lleva un tiempo para completarse.
+#### Agregando o eliminando un jugador de tu tabla DynamoDb
 
-Cuando haya terminado podemos ver los datos de un servicio en una etapa de desarrollo desplegada para nosotros. Ahora vamos a nuestra cuenta de AWS. Volvemos a la página de inicio de la consola de AWS y buscamos lambda.
+Puedes crear una Api no sólo para obtener datos sino también para agregar datos a tu base de datos, utilizando el método POST, que necesita una solicitud de entrada para ingresar datos a un endpoint de API.
 
-Dentro del panel de lambda podemos ver que la última modificación se hizo unos minutos atrás.
-Construimos myseverlessproject-dev-hello. Si hacemos click y bajamos podemos ver que ahí está
-el código que teníamos en ese archivo. Eso significa que hemos implementado con éxito nuestro archivo serverless y que podemos cambiar el código dentro de este tipo de funciones para que sean deployadas en nuestra cuenta de AWS con éxito.
+En la carpeta src donde se encuentran las funciones lambda, como vimos antes, hemos creado un método POST. Al actualizar el proyecto usando el comando "sls deploy" en tu consola, habrás obtendio un endpoint, con una serie de números random - .execute.api, tu región de la cuenta de AWS, por ejemplo us-east-1, y al final una ruta, por ejemplo "/create-player/{Id}". Haz click derecho sobre ese endpoint y cópialo.
 
-Hasta aquí has creado un nuevo proyecto de serverless usando plantillas de serverless, has visto lo que conforma un proyecto de serverless, el archivo serverless.yml y toda la configuración que contiene. Luego lo deployaste y viste cuando estaba siendo creado en tu cuenta de AWS.
-____________________________________
+Puedes probar esa ruta utilizando una aplicación como Postman. En la consola de Postman estableces un POST request y pegas tu url. Necesitas agregar un Id al final de la ruta, diferente a cualquier Id que pueda existir en tu tabla de Dynamo.
+
+Necesitarás agregar un body. En Postman seleccionas "raw" y JSON. Es un objeto, así que usas llaves, agregas un campo "Nickname" y opcionalmente agregas un campo "Avatar" (puedes agregar la url de una imagen de tu preferencia). Al presionar "Send", obtendrás una respuesta de un nuevo jugador con los datos que le acabas de ingresar.
+
+Si ahora vas a tu base de datos de Dynamo en AWS y refrescas la página, verás que ahora un nuevo jugador ha sido agregado a tu tabla. Ahora también puedes probar tu ruta GET por Id para obtener los datos de ese jugador. Y ya puedes probar los demás endpoints, como editar y/o eliminar un jugador.
+
+Ahora puedes agregar o eliminar datos de tu DynamoDB desde el front-end.
 
 Así llegamos al final de este tutorial. Si llegaste a este punto, habrás desplegado nuestro proyecto back-aws-game con AWS Dynamo, AWS Lambda y API Gateway, utilizando Serverless Framework 😊
 
