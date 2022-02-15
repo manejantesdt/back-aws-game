@@ -232,7 +232,7 @@ Todo está listo para deployar el proyecto. En tu terminal, dentro de esta carpe
 
 Sls es una abreviatura de serverless y queremos deployar todo lo que hay en esta carpeta. Hay varias cosas que sucederán al ejecutar este comando por lo cual puede que tome varios minutos, dependiendo de tu equipo y de la velocidad de internet. 
 
-Vamos a revisar todo paso por paso:
+Vamos a revisar todas las configuraciones que tuvieron lugar, paso por paso:
 
 1) Cuando haya terminado podemos ver los datos de un servicio en una etapa de desarrollo desplegada para nosotros. Ahora vamos a nuestra cuenta de AWS. Volvemos a la página de inicio de la consola de AWS y buscamos lambda. Dentro del panel de lambda podemos ver que la última modificación se hizo unos minutos atrás.
 Construimos por ejemplo back-aws-game-dev-getPlayers. Si hacemos click y bajamos podemos ver que ahí está el código que teníamos en ese archivo. Eso significa que hemos implementado con éxito nuestro archivo serverless y que podemos cambiar el código dentro de este tipo de funciones para que sean deployadas en nuestra cuenta de AWS con éxito.
