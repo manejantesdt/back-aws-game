@@ -41,56 +41,37 @@ _Nota: En --profile le damos un nombre a esta cuenta así que para esto vamos a 
 
 Presiona enter, y esto va a configurar algunas cosas de AWS en serverless. Hasta ahora has creado un usuario en AWS y has usado esas credenciales para crear un rol de serverless en tu equipo.
 
-#### Creando tu Proyecto
+#### Echemos un vistazo a nuestro proyecto
 
-Una vez que tengas Serverless instalado y configurado, podemos crear un proyecto usando un comando CLI de serverless. Vamos a usar una plantilla llamada AWS - node.js, y también tenemos que especificar la ruta en la que vamos a construir esta plantilla.
+El back de Recycle Being fue creado usando un comando CLI de serverless. Usamos una plantilla llamada AWS - node.js
 
-En la terminal escribimos el siguiente comando y hacemos "Enter":
-
-### `serverless create --template aws-nodejs --path myServerlessProject`
-
-Este comando de serverless creó una plantilla dentro de la carpeta llamada "myServerlessProject" con todo el código de serverless que necesitamos.
+Dentro de la carpeta llamada "back-aws-game" encontrarás el archivo serverless.yml con todo el código de serverless que necesitas.
 
 Ejecuta en la consola:
 
-### `cd myServerlessProject`
+### `cd back-aws-game`
 
 Y luego
 
 ### `ls`
 
-Y verás un archivo "handler.js" y otro "serverless.yml"
+Y verás que hay varias carpetas y archivos, entre ellos las carpeta src y el archivo "serverless.yml"
 
-Abre el archivo serveless.yml en Visual Studio Code, y verás que tienes un sevicio llamado "myServerlessProject", y debajo un provider con algunos detalles, y más abajo unas funciones donde por el momento tiene una función llamada hello que configura el handler con handler.hello, que apunta al archivo handler.js
+Abre el archivo serveless.yml en Visual Studio Code, y verás que en la primera línea tienes un sevicio llamado "aws-la", y debajo un provider con algunos detalles, y más abajo unas funciones, por ejemplo la función llamada getPlayers que configura el handler con src/getPlayers.getPlayers, que apunta al archivo getPlayers.js dentro de la carpeta src.
 
-handler.js es una archivo javascript donde se exporta una función "hello" que es un evento asíncrono.
+getPlayers.js es una archivo javascript donde se exporta una función "getPlayers" que es un evento asíncrono.
 
 #### Desplegando tu Proyecto
 
 Vuelve a nuestro archivo serverless.yml y vamos a hacer un pequeño cambio. Cuando configuramos aws y
-las credenciales de serverless configuramos un perfil; eso significa que si queremos deployar el proyecto usando esas credenciales tenemos que agregar un perfil para el proveedor. Debajo de provider, agregamos estas líneas:
+las credenciales de serverless configuramos un perfil; eso significa que si queremos deployar el proyecto usando esas credenciales tenemos que agregar un perfil para el proveedor. En la sección provider, en profile, agrega el nombre de tu perfil:
 
 ```sh
 provider:
   name: aws
   runtime: nodejs14.x
-  profile: serverlessUser
+  profile: EL-NOMBRE-DE-TU-PERFIL
 ```
-
-Guardamos este archivo y ahora en la terminal, dentro de esta carpeta ejecutamos:
-
-### `sls deploy`
-
-Sls es una abreviatura de serverless y luego queremos deployar todo lo que hay en esta carpeta.
-Al presionar creará un archivo de configuración serverless y va a crear una plantilla "cloud formation" que va a construir todos los recursos dentro de esta cuenta. Este proceso lleva un tiempo para completarse.
-
-Cuando haya terminado podemos ver los datos de un servicio en una etapa de desarrollo desplegada para nosotros. Ahora vamos a nuestra cuenta de AWS. Volvemos a la página de inicio de la consola de AWS y buscamos lambda.
-
-Dentro del panel de lambda podemos ver que la última modificación se hizo unos minutos atrás.
-Construimos myseverlessproject-dev-hello. Si hacemos click y bajamos podemos ver que ahí está
-el código que teníamos en ese archivo. Eso significa que hemos implementado con éxito nuestro archivo serverless y que podemos cambiar el código dentro de este tipo de funciones para que sean deployadas en nuestra cuenta de AWS con éxito.
-
-Hasta aquí has creado un nuevo proyecto de serverless usando plantillas de serverless, has visto lo que conforma un proyecto de serverless, el archivo serverless.yml y toda la configuración que contiene. Luego lo deployaste y viste cuando estaba siendo creado en tu cuenta de AWS.
 
 #### Agregando una Base de Datos con DynamoDb
 
@@ -271,6 +252,24 @@ Eso significa que está minimizado tanto como sea posible. Si ahora ejecutas:
 Se construirá con webpack; eso comprimirá los archivos y serán más pequeños que antes. Si vas a tu cuenta de AWS, en lambda, entras a alguna de las funciones y bajas para ver el código, verás que en la parte superior hay información relativa a webpack, y más abajo, en la sección principal de código, verás el mismo código que tienes en tu archivo local en esa función, fácil de leer.
 
 El código de lambda no es público, así que nadie más que tu podrá leerlo a menos que tenga acceso a tu cuenta. Con webpack nos aseguramos de que sólo el código que necesitamos en lambda, se sube a lambda, y mejora nuestro despliegue.
+
+___________________________
+
+Guardamos este archivo y ahora en la terminal, dentro de esta carpeta ejecutamos:
+
+### `sls deploy`
+
+Sls es una abreviatura de serverless y luego queremos deployar todo lo que hay en esta carpeta.
+Al presionar creará un archivo de configuración serverless y va a crear una plantilla "cloud formation" que va a construir todos los recursos dentro de esta cuenta. Este proceso lleva un tiempo para completarse.
+
+Cuando haya terminado podemos ver los datos de un servicio en una etapa de desarrollo desplegada para nosotros. Ahora vamos a nuestra cuenta de AWS. Volvemos a la página de inicio de la consola de AWS y buscamos lambda.
+
+Dentro del panel de lambda podemos ver que la última modificación se hizo unos minutos atrás.
+Construimos myseverlessproject-dev-hello. Si hacemos click y bajamos podemos ver que ahí está
+el código que teníamos en ese archivo. Eso significa que hemos implementado con éxito nuestro archivo serverless y que podemos cambiar el código dentro de este tipo de funciones para que sean deployadas en nuestra cuenta de AWS con éxito.
+
+Hasta aquí has creado un nuevo proyecto de serverless usando plantillas de serverless, has visto lo que conforma un proyecto de serverless, el archivo serverless.yml y toda la configuración que contiene. Luego lo deployaste y viste cuando estaba siendo creado en tu cuenta de AWS.
+____________________________________
 
 Así llegamos al final de este tutorial. Si llegaste a este punto, habrás desplegado nuestro proyecto back-aws-game con AWS Dynamo, AWS Lambda y API Gateway, utilizando Serverless Framework 😊
 
