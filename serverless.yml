@@ -65,3 +65,6 @@ resources:
           WriteCapacityUnits: 1
 # plugins:
 #   - serverless-webpack
+	
+# plugins:
+#   - serverless-middleware

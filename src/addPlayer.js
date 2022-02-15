@@ -4,52 +4,81 @@ const tableName = process.env.tableName;
 const addPlayer = async (event) => {
   try {
     const dynamoDb = new AWS.DynamoDB.DocumentClient();
+
     var { nickname, avatar } = JSON.parse(event.body);
-    const result = (
+    // --------------------------------->validaciones<----------------------------------
+    if (
+      !nickname ||
+      !avatar ||
+      typeof nickname !== "string" ||
+      typeof avatar !== "string"
+    ) {
+      return {
+        statusCode: 500,
+        body: JSON.stringify({
+          message: "El nickname o avatar es incorrecto",
+        }),
+      };
+      //___________________________________________________________________________________
+
+      // ----------------------------------<creacion de player>----------------------------
+    } else {
+      const result = (
+        await dynamoDb
+          .scan({
+            TableName: tableName,
+          })
+          .promise()
+      ).Items;
+      if (!result) {
+        throw Error(`There was an error fetching the data from ${tableName}`);
+      }
+      console.log(result);
+      //___________________________________________________________________________________
+
+      // -----------------------<asignacion avatar default>--------------------------------
+      if (!avatar) {
+        avatar =
+          "https://drive.google.com/thumbnail?id=1wy_udY0W2rebTfKDYVClfAbWewWqfzmd";
+      }
+      //___________________________________________________________________________________
+
+      // ------------------------------<Funciones organizacion>----------------------------
+      let players = result;
+      players = players.sort((a, b) => a.ranking - b.ranking);
+      let lastPlayer = players[players.length - 1];
+      const newPlayer = {
+        Id: lastPlayer.ranking + 1,
+        nickname,
+        status: "hierro",
+        ranking: lastPlayer.ranking + 1,
+        score: 0,
+        avatar,
+      };
+      //___________________________________________________________________________________
+
+      // ----------------------------<Creacion de player>----------------------------------
       await dynamoDb
-        .scan({
+        .put({
           TableName: tableName,
+          Item: newPlayer,
         })
-        .promise()
-    ).Items;
-    if (!result) {
-      throw Error(`There was an error fetching the data from ${tableName}`);
+        .promise();
+
+      return {
+        statusCode: 200,
+        body: JSON.stringify(newPlayer),
+      };
     }
-    console.log(result);
+    //___________________________________________________________________________________
 
-    if (!avatar) {
-      avatar =
-        "https://drive.google.com/thumbnail?id=1wy_udY0W2rebTfKDYVClfAbWewWqfzmd";
-    }
-    let players = result;
-    players = players.sort((a, b) => a.ranking - b.ranking);
-    let lastPlayer = players[players.length - 1];
-    const newPlayer = {
-      Id: lastPlayer.ranking + 1,
-      nickname,
-      status: "hierro",
-      ranking: lastPlayer.ranking + 1,
-      score: 0,
-      avatar,
-    };
-
-    await dynamoDb
-      .put({
-        TableName: tableName,
-        Item: newPlayer,
-      })
-      .promise();
-
-    return {
-      statusCode: 200,
-      body: JSON.stringify(newPlayer),
-    };
+    // ------------------------------<Catch>---------------------------------------------
   } catch (e) {
     console.error(e);
     response.statusCode = 500;
     response.body = JSON.stringify({
       message: "Failed to add player.",
-      errorMsg: e.message,
+      errorMsg: "Failed to add player.",
       errorStack: e.stack,
     });
   }
