@@ -79,7 +79,7 @@ Ahora que configuramos nuestra cuenta de AWS con serverless podemos agregar una 
 
 AWS maneja toda la infraestructura por nosotros, lo que significa que una vez que está configurada escalará de manera automática con la información que cargues en ella, y no tienes que lidiar con los servidores o manejar ninguna de las bases de datos.
 
-En el código del back-end que descargaste de nuestro repositorio, debajo de "funciones", verás este código:
+En el archivo serverless.yml, debajo de "functions" (funciones), verás este código:
 
 ```sh
 resources:
@@ -87,7 +87,7 @@ resources:
     usersTable:
       Type: AWS::DynamoDB::Table
       Properties:
-        TableName: CredituPlayers
+        TableName: ${self:custom.tableName}
         AttributeDefinitions:
           - AttributeName: Id
             AttributeType: N
@@ -103,7 +103,14 @@ Necesitas definir el nombre del recurso, en este caso nosotros usamos "usersTabl
 
 Necesitamos otro nombre para tu base de datos porque Amazon usa base de datos en todo el mundo y esto tiene que ser un nombre de una base de datos completamente único para ti. Y eso significa que tiene que ser algo muy singular y no así nombres comunes.
 
-En la línea donde dice " TableName:", reeemplaza "CredituPlayers" por un nombre para tu nueva base de datos.
+En la línea donde dice " TableName:", utilizamos una variable de entorno: "${self:custom.tableName}".
+
+Busca en el archivo 
+```sh
+custom:
+  tableName: CredituPlayers 
+```
+Reeemplaza "CredituPlayers" por un nombre para tu nueva base de datos.
 
 En atributos se definen los atributos que estarám en cada una de las filas de la base de datos. Los atributos tienen un nombre y un tipo, en nuestro caso "AttributeName: Id" que es de tipo "N" (número).
 
