@@ -61,7 +61,7 @@ Abre el archivo serveless.yml en Visual Studio Code, y verás que en la primera 
 
 getPlayers.js es una archivo javascript donde se exporta una función "getPlayers" que es un evento asíncrono.
 
-#### Desplegando tu Proyecto
+#### Configurando tu Proyecto
 
 Vuelve a nuestro archivo serverless.yml y vamos a hacer algunos pequeños cambios. Cuando configuramos aws y
 las credenciales de serverless configuramos un perfil; eso significa que si quieres deployar el proyecto usando esas credenciales tienes que agregar un perfil para el proveedor. En la sección provider, en profile, agrega el nombre de tu perfil:
