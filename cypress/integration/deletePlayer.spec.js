@@ -11,20 +11,41 @@ describe("edit playern information", () => {
         nickname: "gustavo",
       })
       .then((response) => {
-        responsePostId = response.body.Id.toString();
+        responsePostId = response.body.Id;
       });
   });
 
   it("Delete player - Delete", async () => {
-    await cy.request("DELETE", `/player/${responsePostId}`).then((response) => {
-      responseDelete = response;
+    await cy
+      .request("DELETE", "/player", {
+        Id: responsePostId,
+      })
+      .then((response) => {
+        responseDelete = response;
+      });
+  });
+  it("edita los campos correctamente", () => {
+    expect(responseDelete.body.message).to.eq("Player deleted successfully");
+    expect(responseDelete.status).to.eq(200);
+  });
+
+   it("validacion - DELETE", async () => {
+    cy.request("DELETE", "/player",{
+      Id:"hola",
+    }).then((response) => {
+      expect(response.status).to.eq(500);
+      expect(response.body.message).to.eq("no pasa validacion");
     });
   });
 
-  it("edita los campos correctamente", () => {
-    expect(responseDelete.body.body.message).to.eq(
-      "Player deleted successfully"
-    );
-    expect(responseDelete.status).to.eq(200);
+   it("validacion ID - DELETE", async () => {
+    cy.request("DELETE", "/player",{
+      Id:null,
+    }).then((response) => {
+      expect(response.status).to.eq(500);
+      expect(response.body.message).to.eq("no pasa validacion");
+    });
   });
+
+
 });

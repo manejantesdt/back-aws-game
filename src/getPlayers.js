@@ -53,15 +53,6 @@ const getPlayers = async (event) => {
                   .includes(nick_name.toLocaleLowerCase())
           );
         }
-        if (/\w/.test(nick_name)) {
-          return {
-            status: 500,
-            body: {
-              message:
-                "El nombre de usuario solo puede contener letras y numeros",
-            },
-          };
-        }
       }
       if (nick_name === "") {
         players = [];

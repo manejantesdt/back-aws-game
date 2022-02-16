@@ -3,18 +3,20 @@ const tableName = process.env.tableName;
 
 const putPlayer = async (event) => {
   try {
-  // -------------------<variables y funcione oraganizacion>--------------------------------
+    // -------------------<variables y funcione oraganizacion>--------------------------------
     const dynamodb = new AWS.DynamoDB.DocumentClient();
     var { Id } = event.pathParameters;
     const { avatar, score, nickname } = JSON.parse(event.body);
     var newScore = parseInt(score);
-  //_________________________________________________________________________________________
+    Id = parseInt(Id);
+    //_________________________________________________________________________________________
 
-  //--------------------------<Id verificacion >--------------------------------------------- 
-    if (Id) {
+    //--------------------------<Id verificacion >---------------------------------------------
+  
+     if(Id){
       Id = parseInt(Id);
       var status = "";
-  //-----------------------------<Asignacion de Score>---------------------------------------  
+      //-----------------------------<Asignacion de Score>---------------------------------------
       if (86510 <= newScore) {
         status = "oro";
       } else if (56510 <= newScore && newScore < 86510) {
@@ -26,9 +28,9 @@ const putPlayer = async (event) => {
       } else if (0 > newScore) {
         throw Error("Score must be greater than 0");
       }
-  //_________________________________________________________________________________________
+      //_________________________________________________________________________________________
 
-  //-----------------------------<Modificacion player>---------------------------------------
+      //-----------------------------<Modificacion player>---------------------------------------
       let update = await dynamodb
         .update({
           TableName: tableName,
@@ -47,9 +49,9 @@ const putPlayer = async (event) => {
           ReturnValues: "ALL_NEW",
         })
         .promise();
-  //_________________________________________________________________________________________
+      //_________________________________________________________________________________________
 
-  // --------------------------<Verificaion datos>-------------------------------------------
+      // --------------------------<Verificaion datos>-------------------------------------------
       if (!update) {
         throw Error(`There was an error fetching the data from ${tableName}`);
       }
@@ -62,14 +64,25 @@ const putPlayer = async (event) => {
         }),
       };
     }
-  // _________________________________________________________________________________________
+    if (typeof Id !== "numero" || !Id || Id === null || Id === undefined) {
+      return {
+        statusCode: 500,
+        body: JSON.stringify({
+          message: "no pasa validacion",
+        }),
+      };
+    }
+
     return {
       statusCode: 500,
       body: JSON.stringify({
         message: "player not updated",
       }),
     };
-  // --------------------------<catch>--------------------------------------------------------- 
+
+    // _________________________________________________________________________________________
+
+    // --------------------------<catch>---------------------------------------------------------
   } catch (e) {
     console.error(e);
     response.statusCode = 500;
