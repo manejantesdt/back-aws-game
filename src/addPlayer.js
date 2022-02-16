@@ -8,6 +8,8 @@ const addPlayer = async (event) => {
     var { nickname, avatar } = JSON.parse(event.body);
     // --------------------------------->validaciones<----------------------------------
     if (
+      nickname === undefined ||null ||
+      avatar === undefined || null ||
       !nickname ||
       !avatar ||
       typeof nickname !== "string" ||
@@ -16,7 +18,7 @@ const addPlayer = async (event) => {
       return {
         statusCode: 500,
         body: JSON.stringify({
-          message: "El nickname o avatar es incorrecto",
+          message: "No pasa validacion",
         }),
       };
       //___________________________________________________________________________________

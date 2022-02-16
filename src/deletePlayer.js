@@ -6,11 +6,11 @@ const deletePlayer = async (event) => {
     const dynamodb = new AWS.DynamoDB.DocumentClient();
     var { Id } = JSON.parse(event.body);
     // -------------------<validacion de Id>--------------------------------
-    if (!Id || typeof Id !== "number") {
+    if (!Id || typeof Id !== "number" || Id === null || Id === undefined) {
       return {
         statusCode: 500,
         body: JSON.stringify({
-          message: "El Id es incorrecto",
+          message: "no pasa validacion",
         }),
       };
       //_______________________________________________________________________
@@ -30,7 +30,7 @@ const deletePlayer = async (event) => {
       };
     }
     // _______________________________________________________________________
-    
+
     // ------------------------------<Catch>----------------------------------
   } catch (e) {
     console.error(e);

@@ -6,7 +6,7 @@ const getPlayerId = async (event) => {
     const dynamodb = new AWS.DynamoDB.DocumentClient();
     var { Id } = event.pathParameters;
     // -------------------<validacion de Id>--------------------------------
-    if (!Id || typeof Id !== "string") {
+    if (!Id || typeof Id !== "string" || Id === null || Id === undefined) {
       return {
         statusCode: 500,
         body: JSON.stringify({
