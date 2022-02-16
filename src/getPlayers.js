@@ -90,12 +90,12 @@ const getPlayers = async (event) => {
         }
         if (status === "bronce") {
           players = players.filter((player) => {
-            return player.status === "plata";
+            return player.status === "bronce";
           });
         }
         if (status === "plata") {
           players = players.filter((player) => {
-            return player.status === "bronce";
+            return player.status === "plata";
           });
         }
         if (status === "hierro") {
