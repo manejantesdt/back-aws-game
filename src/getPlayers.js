@@ -3,7 +3,7 @@ const tableName = process.env.tableName;
 
 const getPlayers = async (event) => {
   try {
-    // ----------------------------------<constantes>--------------------------------------
+    // ---------------<constantes y llamado a los players>----------------------------------
     const dynamodb = new AWS.DynamoDB.DocumentClient();
     const result = (
       await dynamodb
@@ -12,16 +12,10 @@ const getPlayers = async (event) => {
         })
         .promise()
     ).Items;
-    if (!result) {
-      throw Error(`There was an error fetching the data from ${tableName}`);
-    }
-    console.log(result);
-
     // ______________________________________________________________________________________
 
-    // ----------------------------------<variables>-----------------------------------------
+    // ------------------<variables y funcione oraganizacion>--------------------------------
     var playeResult = result;
-    var players = playeResult;
     var players = playeResult.sort((a, b) => b.score - a.score);
     var count = 1;
     players.forEach((g) => {
@@ -45,28 +39,24 @@ const getPlayers = async (event) => {
               })
               .promise()
           ).Item;
-          if (!playerId) {
-            throw Error(
-              `There was an error fetching the data from ${tableName}`
-            );
-          }
-          console.log(playerId);
-          players = playerId;
+          let playerSearch = [playerId];
+          let id = playerSearch[0].Id;
+          players = players.filter((p) => p.Id === id);
         }
 
         if (!/^\d+$/.test(nick_name)) {
-          players = players.filter((player) =>
-            player.nickname
-              .toLocaleLowerCase()
-              .includes(nick_name.toLocaleLowerCase())
+          players = players.filter((p) =>
+            !p.nickname
+              ? (p.nickname = "")
+              : p.nickname
+                  .toLocaleLowerCase()
+                  .includes(nick_name.toLocaleLowerCase())
           );
         }
       }
-
       if (nick_name === "") {
         players = [];
       }
-
       if (!nick_name) {
         players = players;
       }
@@ -83,6 +73,7 @@ const getPlayers = async (event) => {
           players = players.sort((a, b) => b.score - a.score);
         }
       }
+      
       // ______________________________________________________________________________________
 
       //--------------------------------<status>------------------------------------------------
@@ -112,7 +103,9 @@ const getPlayers = async (event) => {
             return player.status === "hierro";
           });
         }
-        // ______________________________________________________________________________________
+        // ____________________________________________________________________________________
+
+        // ------------------------<amount>-----------------------------------------------------
         if (amount) {
           players = players.slice(0, parseInt(amount));
         }
@@ -127,6 +120,9 @@ const getPlayers = async (event) => {
         },
       };
     }
+    // ______________________________________________________________________________________
+
+    // -----------------------------<return busqueda sin parametros>-------------------------
     return {
       status: 200,
       body: {
@@ -134,6 +130,7 @@ const getPlayers = async (event) => {
         getPlayers: getPlayers,
       },
     };
+    // --------------------------<catch>------------------------------------------------------
   } catch (e) {
     console.error(e);
     response.statusCode = 500;

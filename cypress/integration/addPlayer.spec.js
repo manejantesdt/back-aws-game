@@ -17,4 +17,6 @@ describe("add player testing", () => {
     expect(response1.body).to.have.property("nickname", "gustavo");
     expect(response1.status).to.eq(200);
   });
+
+ 
 });

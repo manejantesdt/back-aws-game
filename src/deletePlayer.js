@@ -5,23 +5,33 @@ const deletePlayer = async (event) => {
   try {
     const dynamodb = new AWS.DynamoDB.DocumentClient();
     var { Id } = JSON.parse(event.body);
-    var result = await dynamodb
-      .delete({
-        TableName: tableName,
-        Key: { Id: parseInt(Id) },
-      })
-      .promise();
-    if (!result) {
-      throw Error(`There was an error fetching the data from ${tableName}`);
-    }
-    console.log(result);
+    // -------------------<validacion de Id>--------------------------------
+    if (!Id || typeof Id !== "number" || Id === null || Id === undefined) {
+      return {
+        statusCode: 500,
+        body: JSON.stringify({
+          message: "no pasa validacion",
+        }),
+      };
+      //_______________________________________________________________________
 
-    return {
-      status: 200,
-      body: {
+      // --------------------------<Borrar player>-----------------------------
+    } else {
+      await dynamodb
+        .delete({
+          TableName: tableName,
+          Key: { Id: Id },
+        })
+        .promise();
+
+      return {
+        status: 200,
         message: "Player deleted successfully",
-      },
-    };
+      };
+    }
+    // _______________________________________________________________________
+
+    // ------------------------------<Catch>----------------------------------
   } catch (e) {
     console.error(e);
     response.statusCode = 500;
