@@ -4,7 +4,9 @@ const tableName = process.env.tableName;
 const deletePlayer = async (event) => {
   try {
     const dynamodb = new AWS.DynamoDB.DocumentClient();
-    var { Id } = JSON.parse(event.body);
+    var { Id } = event.pathParameters;
+    Id = parseInt(Id);
+    console.log(Id);
     // -------------------<validacion de Id>--------------------------------
     if (!Id || typeof Id !== "number" || Id === null || Id === undefined) {
       return {

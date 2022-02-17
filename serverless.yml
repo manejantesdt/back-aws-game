@@ -41,12 +41,14 @@ functions:
       - httpApi:
           path: /player/{Id}
           method: put
+  
   deletePlayer:
     handler: src/deletePlayer.deletePlayer
     events:
       - httpApi:
-          path: /player
+          path: /player/{Id}
           method: delete
+        
 
 resources:
   Resources:

@@ -12,14 +12,13 @@ describe("edit playern information", () => {
       })
       .then((response) => {
         responsePostId = response.body.Id;
+        console.log(responsePostId);
       });
   });
 
   it("Delete player - Delete", async () => {
     await cy
-      .request("DELETE", "/player", {
-        Id: responsePostId,
-      })
+      .request("DELETE", `/player/${responsePostId}`)
       .then((response) => {
         responseDelete = response;
       });
@@ -30,18 +29,14 @@ describe("edit playern information", () => {
   });
 
    it("validacion - DELETE", async () => {
-    cy.request("DELETE", "/player",{
-      Id:"hola",
-    }).then((response) => {
+    cy.request("DELETE", `/player/hola`).then((response) => {
       expect(response.status).to.eq(500);
       expect(response.body.message).to.eq("no pasa validacion");
     });
   });
 
    it("validacion ID - DELETE", async () => {
-    cy.request("DELETE", "/player",{
-      Id:null,
-    }).then((response) => {
+    cy.request("DELETE", `/player/${null}`).then((response) => {
       expect(response.status).to.eq(500);
       expect(response.body.message).to.eq("no pasa validacion");
     });
