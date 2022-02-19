@@ -67,10 +67,10 @@ const getPlayers = async (event) => {
 
       if ((order && order === "asc") || order === "desc" || order === "") {
         if (order === "asc" || order === "") {
-          players = players.sort((a, b) => a.score - b.score);
+          players = players.sort((a, b) => b.score - a.score);
         }
         if (order === "desc") {
-          players = players.sort((a, b) => b.score - a.score);
+          players = players.sort((a, b) => a.score - b.score);
         }
       }
       

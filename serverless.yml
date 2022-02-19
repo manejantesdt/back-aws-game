@@ -17,6 +17,12 @@ custom:
   tableName: CredituPlayers
 
 functions:
+  create3000:
+    handler: src/create3000.create3000
+    events:
+      - httpApi:
+          path: /players
+          method: post
   createPlayer:
     handler: src/addPlayer.addPlayer
     events:
@@ -41,14 +47,13 @@ functions:
       - httpApi:
           path: /player/{Id}
           method: put
-  
+
   deletePlayer:
     handler: src/deletePlayer.deletePlayer
     events:
       - httpApi:
           path: /player/{Id}
           method: delete
-        
 
 resources:
   Resources:
@@ -67,6 +72,6 @@ resources:
           WriteCapacityUnits: 1
 # plugins:
 #   - serverless-webpack
-	
+
 # plugins:
 #   - serverless-middleware
