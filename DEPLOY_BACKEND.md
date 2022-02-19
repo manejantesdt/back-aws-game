@@ -287,15 +287,11 @@ Así llegamos al final de este tutorial. Si llegaste a este punto, habrás despl
 
 ## Autores ✒️
 
-- **Ramiro Villamizar ** - [pivotsk8](https://github.com/pivotsk8)
-- **Marisa Lia Pascal ** - [Marisaliap](https://github.com/Marisaliap)
-- **Nelson Albera ** - [nalbera](https://github.com/nalbera)
-- **Gustavo Montero ** - [gamontero](https://github.com/gamontero)
-- **Daniel Alberto Mena ** - [BtoMJ](https://github.com/BtoMJ)
-
-#### Una mención especial por su compañerismo y su aporte a este proyecto para
-
-- **Fabrizio Santandrea ** - [fabsantandrea](https://github.com/fabsantandrea)
+* **Ramiro Villamizar ** - [pivotsk8](https://github.com/pivotsk8)
+* **Marisa Lia Pascal ** - [Marisaliap](https://github.com/Marisaliap)
+* **José Ángel Rey ** - [Jose-Angel-Rey](https://github.com/Jose-Angel-Rey)
+* **Gustavo Montero ** - [gamontero](https://github.com/gamontero)
+* **Daniel Alberto Mena ** - [BtoMJ](https://github.com/BtoMJ)
 
 ## Licencia 📄
 
