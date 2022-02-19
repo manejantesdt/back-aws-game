@@ -41,7 +41,7 @@ const addPlayer = async (event) => {
       // -----------------------<asignacion avatar default>--------------------------------
       if (!avatar) {
         avatar =
-          "https://drive.google.com/thumbnail?id=1wy_udY0W2rebTfKDYVClfAbWewWqfzmd";
+          "https://res.cloudinary.com/dlwobuyjb/image/upload/v1645281389/proyecto%20creitu/avatar10_mhxh5j.png";
       }
       //___________________________________________________________________________________
 
