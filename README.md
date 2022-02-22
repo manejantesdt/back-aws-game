@@ -49,7 +49,7 @@ Para el despliegue de este proyecto se utilizó la plantilla aws-nodejs para hac
 
 Si tienes experiencia utilizando estos servicios, sigue adelante con las indicaciones en este documento. Necesitarás instalar serverless y configurarlo con tus credenciales de AWS.
 
-_AWS ofrece una gran variedad de servicios y si es la primera vez que los utilizas, puede ser bastante confuso... te lo decimos por experiencia! 😊 Por eso hemos preparado un tutorial con indicaciones detalladas, paso-a-paso. Sigue las indicaciones en el [documento **DEPLOY_BACKEND.md**](https://github.com/manejantesdt/back-aws-game/blob/dev/DEPLOY_BACKEND.md) de este repositorio para desplegar este proyecto con todas sus funcionalidades._
+_AWS ofrece una gran variedad de servicios y si es la primera vez que los utilizas, puede ser bastante confuso... te lo decimos por experiencia! 😊 Por eso hemos preparado un tutorial con indicaciones detalladas, paso-a-paso. Sigue las indicaciones en el [documento **DEPLOY.md**](https://github.com/manejantesdt/back-aws-game/blob/dev/DEPLOY.md) de este repositorio para desplegar este proyecto con todas sus funcionalidades._
 
 #### A continuación te dejamos algunos comandos y sugerencias para realizar pruebas:
 
