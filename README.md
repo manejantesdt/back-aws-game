@@ -8,8 +8,8 @@ quiénes son los jugadores del mismo.
 
 ## ¿Puedo ver esta aplicación en vivo? 💻
 
-Claro que sí! Tanto el Front-end como el Back-end fueron deployadas utilizando diferentes servicios en AWS (Lambda, Dynamo, S3, APi Gateway, entre otros).
-Puedes visitar la versión online [haciendo click en este siguiente enlace:](https://dfuf67ce7t2lm.cloudfront.net/)
+Claro que sí! El Back-end fue desplegado utilizando diferentes servicios de AWS (Lambda, Dynamo, APi Gateway, entre otros).
+Puedes visitar la versión online [haciendo click en este siguiente enlace:](https://recicle-being.vercel.app/)
 
 ## Comenzando 🚀
 
