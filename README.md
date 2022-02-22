@@ -182,23 +182,15 @@ Se desarrolla sin servidor con las siguientes rutas:
 
 ## Ejecutando las pruebas ⚙️
 
-_Explica como ejecutar las pruebas automatizadas para este sistema_
-
-### Analice las pruebas end-to-end 🔩
-
-_Explica que verifican estas pruebas y por qué_
+Para correr los test, ejecutar el comando:
 
 ```
-Dar un ejemplo
+npx cypress open
 ```
+Cypress de forma automatica reconocerá los archivos de test definidos en el repositorio. Posteriormente, permitirá de forma interactiva correr cada uno de los test. [Ver Documentación](https://docs.cypress.io/guides/core-concepts/test-runner#Overview)
 
-### Y las pruebas de estilo de codificación ⌨️
+Las pruebas se centrar en testear las funciones lambda y su conexión con la base de datos. Además, verifican las validaciones y las distintas respuestas recibida por parte de las funciones. 
 
-_Explica que verifican estas pruebas y por qué_
-
-```
-Da un ejemplo
-```
 
 ## Construido con 🛠️
 
