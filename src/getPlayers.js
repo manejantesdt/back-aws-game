@@ -27,6 +27,7 @@ const getPlayers = async (event) => {
     // ----------------------------------<busqueda name y id>--------------------------------
     if (event?.queryStringParameters) {
       const { nick_name, order, status, amount } = event.queryStringParameters;
+      console.log("soy el amount", amount);
       if (nick_name) {
         if (/^\d+$/.test(nick_name)) {
           let playerId = (
@@ -73,7 +74,7 @@ const getPlayers = async (event) => {
           players = players.sort((a, b) => a.score - b.score);
         }
       }
-      
+
       // ______________________________________________________________________________________
 
       //--------------------------------<status>------------------------------------------------
@@ -103,14 +104,15 @@ const getPlayers = async (event) => {
             return player.status === "hierro";
           });
         }
-        // ____________________________________________________________________________________
-
-        // ------------------------<amount>-----------------------------------------------------
-        if (amount) {
-          players = players.slice(0, parseInt(amount));
-        }
       } else if (nick_name === "") {
         players = [];
+      }
+      // ____________________________________________________________________________________
+
+      // ------------------------<amount>-----------------------------------------------------
+      if (amount) {
+        console.log(amount);
+        getPlayers = getPlayers.slice(0, parseInt(amount));
       }
       return {
         status: 200,
