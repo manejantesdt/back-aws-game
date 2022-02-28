@@ -111,7 +111,6 @@ const getPlayers = async (event) => {
 
       // ------------------------<amount>-----------------------------------------------------
       if (amount) {
-        console.log(amount);
         getPlayers = getPlayers.slice(0, parseInt(amount));
       }
       return {
